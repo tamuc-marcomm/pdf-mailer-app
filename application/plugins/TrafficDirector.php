@@ -29,6 +29,7 @@ class Application_Plugins_TrafficDirector extends Zend_Controller_Plugin_Abstrac
 		}
 		
         $request->setParam('ru',$request->getRequestUri());
+		$request->setModuleName('default');
 		$request->setControllerName('user');
 		$request->setActionName('login');
 		
