@@ -1,52 +1,5 @@
-<div class="departments">
-<table id="dataTable">
-	<thead>
-		<th></th>
-		<th>ID</th>
-		<th>Name</th>
-	</thead>
-	<tbody>
-	<?php foreach ($this->departments as $department) : ?>
+Should present admin with a list of current email templates and give them teh opportunity to edit them.
 
-	<tr id="<?php echo $department->id; ?>" onclick="document.location = '<?php echo $this->url(array('module' => 'admin', 'controller' => 'content', 'action' => 'edit', 'id' => $department->id), null, true); ?>'">
-		<td><input type="checkbox" name="departments[]" id="<?php echo $department->id; ?>"> </td>
-		<td><?php echo $department->id; ?> </td>
-		<td><?php echo $department->name; ?></td>
-	</tr>
-	<?php endforeach;?>
-	<tbody>
-	<button id="add_department">Add Department</button>
-	<button id="delete_departments">Delete Departments</button>
-</table>
-</div>
+Links for editing should be /admin/emailtemplate/edit/{email_unique_id}.
+Link for creating a new email template should be /admin/emailtemplate/new/.
 
-<script>
-function refresh() {
-	location.reload(true);
-}
-$(document).ready(function() {
-	$('#add_department').click(function() {
-		var name = prompt("Enter the name of the department you'd like to add:");
-		$.ajax({
-			type: "POST",
-			url: "<?php echo $this->url(array('module' => 'admin', 'controller' => 'content', 'action' => 'adddepartment'), null, true); ?>",
-			data: name,
-			success: refresh
-		});
-	});
-	$('#delete_departments').click(function() {
-		var boxes = new Array();
-		$("input:checkbox[name=departments]:checked").each(function() {
-			boxes.push($(this).val());
-		});
-		$.ajax({
-			type: "POST",
-			url: "<?php echo $this->url(array('module' => 'admin', 'controller' => 'content', 'action' => 'deletedepartment'), null, true); ?>",
-			data: JSON.stringify(boxes),
-			success: function() {
-				alert("The seleceted departments have been deleted");
-			}
-		});
-	});
-});
-</script>

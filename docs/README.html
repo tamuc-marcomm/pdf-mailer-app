@@ -1,0 +1,32 @@
+All rest queries return a JSON formated string with two fields.  A status field, which contains 'success' and the name or 'failure', and 'data' if a successful call is made or 'message' in the event of a failure.
+
+Rest Queries
+	[Colleges]
+		Request Description
+			@request  /rest/colleges/{id}
+			@param id Optional.  If supplied, returns a single entry whose id matches the given id.
+
+		Response Entry Description
+			@field id   Unique ID which can be used to retrieve this entry in the future.
+			@field name Name of the college.  Max Length:  65535 characters.
+
+	[Department]
+		Request Description
+			@request     /rest/departments/{id}
+			@param id    Optional.  If supplied, returns a single entry whose id matches the given id.
+
+		Response Entry Description
+			@field id            Unique ID which can be used to retrieve this entry in the future.
+			@field parent        ID of the parent college.
+			@field name          Name of the department.    Max Length:  65535 characters.
+			@field email_subject Subject line of the email.  Maximum Length:  80 characters.
+			@field email_body    Body of email.  Maximum Length:  65535 characters.  May contain raw html.
+			@field pdf_link      HTTP URL to a PDF file if one exists for this entry, or null, otherwise.  Maximum Length:  65535 characters.
+
+	[Departments By College]
+		Request Description
+			@request /rest/departmentsbycollege/{id}
+			@param id ID of the college whose departments you are trying to retrieve.  Will return an empty 'data' field if there are no results.
+
+		Response Entry Description
+			@see [Deparment] Response Entry Description

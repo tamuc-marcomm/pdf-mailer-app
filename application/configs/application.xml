@@ -1,123 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application xmlns:zf="http://framework.zend.com/xml/zend-config-xml/1.0/">
-	<production>
-		<appnamespace>Application</appnamespace>
-		<autoloaderNamespaces>
-			<application>Application_</application>
-			<strixa>Strixa_</strixa>
-		</autoloaderNamespaces>
-		<bootstrap>
-			<class>Bootstrap</class>
-			<path><zf:const zf:name="APPLICATION_PATH" />/Bootstrap.php</path>
-		</bootstrap>
-		<includePaths>
-			<application><zf:const zf:name="APPLICATION_PATH" />/../</application>
-			<library><zf:const zf:name="APPLICATION_PATH" />/../library</library>
-		</includePaths>
-		<phpSettings>
-			<date>
-				<timezone>America/Chicago</timezone>
-			</date>
-			<display_errors>0</display_errors>
-			<display_startup_errors>0</display_startup_errors>
-		</phpSettings>
-		<resources>
-			<db>
-				<adapter>PDO_MYSQL</adapter>
-				<params>
-					<host>localhost</host>
-					<username>root</username>
-					<password></password>
-					<dbname>workthing</dbname>
-				</params>
-			</db>
-			<frontController>
-			<actionhelperpaths>
-				<Application_Controllers_Helpers><zf:const zf:name="APPLICATION_PATH" />/controllers/helpers</Application_Controllers_Helpers>
-			</actionhelperpaths>
-				<moduleDirectory><zf:const zf:name="APPLICATION_PATH" />/modules/</moduleDirectory>
-				<params>
-					<displayExceptions>0</displayExceptions>
-				</params>
-				<plugins>
-					<UserSetter>Application_Plugins_UserSetter</UserSetter>
-					<TrafficDirector>Application_Plugins_TrafficDirector</TrafficDirector>
-				</plugins>
-			</frontController>
-			<layout>
-				<layoutPath><zf:const zf:name="APPLICATION_PATH" />/layouts/scripts/</layoutPath>
-			</layout>
-			<router>
-				<routes>
-					<restusers>
-						<route>/rest/users/:id</route>
-						<defaults>
-							<module>default</module>
-							<controller>rest</controller>
-							<action>users</action>
-							<id />
-						</defaults>
-					</restusers>
-					<restcolleges>
-						<route>/rest/colleges/:id</route>
-						<defaults>
-							<module>default</module>
-							<controller>rest</controller>
-							<action>colleges</action>
-							<id />
-						</defaults>
-					</restcolleges>
-					<restdepartments>
-						<route>/rest/departments/:id</route>
-						<defaults>
-							<module>default</module>
-							<controller>rest</controller>
-							<action>departments</action>
-							<id />
-						</defaults>
-					</restdepartments>
-					<restcontent>
-						<route>/rest/content/:id</route>
-						<defaults>
-							<module>default</module>
-							<controller>rest</controller>
-							<action>content</action>
-							<id />
-						</defaults>
-					</restcontent>
-					<restcontentbydepartment>
-						<route>/rest/contentbydepartment/:id</route>
-						<defaults>
-							<module>default</module>
-							<controller>rest</controller>
-							<action>contentbydepartment</action>
-							<id />
-						</defaults>
-					</restcontentbydepartment>
-					<restdepartmentsbycollege>
-						<route>/rest/departmentsbycollege/:id</route>
-						<defaults>
-							<module>default</module>
-							<controller>rest</controller>
-							<action>departmentsbycollege</action>
-							<id />
-						</defaults>
-					</restdepartmentsbycollege>
-				</routes>
-			  </router>
-		</resources>
-	</production>
-	<development zf:extends="production">
-		<phpSettings>
-			<display_errors>1</display_errors>
-			<display_startup_errors>1</display_startup_errors>
-		</phpSettings>
-		<resources>
-			<frontController>
-				<params>
-					<displayExceptions>1</displayExceptions>
-				</params>
-			</frontController>
-		</resources>
-	</development>
+    <production>
+        <appnamespace>Application</appnamespace>
+        <autoloaderNamespaces>
+            <application>Application_</application>
+            <strixa>Strixa_</strixa>
+        </autoloaderNamespaces>
+        <bootstrap>
+            <class>Bootstrap</class>
+            <path><zf:const zf:name="APPLICATION_PATH" />/Bootstrap.php</path>
+        </bootstrap>
+        <includePaths>
+            <application><zf:const zf:name="APPLICATION_PATH" />/../</application>
+            <library><zf:const zf:name="APPLICATION_PATH" />/../library</library>
+        </includePaths>
+        <phpSettings>
+            <date>
+                <timezone>America/Chicago</timezone>
+            </date>
+            <display_errors>0</display_errors>
+            <display_startup_errors>0</display_startup_errors>
+        </phpSettings>
+        <resources>
+            <db>
+                <adapter>PDO_MYSQL</adapter>
+                <params>
+                    <host>localhost</host>
+                    <username>root</username>
+                    <password></password>
+                    <dbname>workthing</dbname>
+                </params>
+            </db>
+            <frontController>
+            <actionhelperpaths>
+                <Application_Controllers_Helpers><zf:const zf:name="APPLICATION_PATH" />/controllers/helpers</Application_Controllers_Helpers>
+            </actionhelperpaths>
+                <moduleDirectory><zf:const zf:name="APPLICATION_PATH" />/modules/</moduleDirectory>
+                <params>
+                    <displayExceptions>0</displayExceptions>
+                </params>
+                <plugins>
+                    <UserSetter>Application_Plugins_UserSetter</UserSetter>
+                    <TrafficDirector>Application_Plugins_TrafficDirector</TrafficDirector>
+                </plugins>
+            </frontController>
+            <layout>
+                <layoutPath><zf:const zf:name="APPLICATION_PATH" />/layouts/scripts/</layoutPath>
+            </layout>
+            <router>
+                <routes>
+                    <restusers>
+                        <route>/rest/users/:id</route>
+                        <defaults>
+                            <module>default</module>
+                            <controller>rest</controller>
+                            <action>users</action>
+                            <id />
+                        </defaults>
+                    </restusers>
+                    <restcolleges>
+                        <route>/rest/colleges/:id</route>
+                        <defaults>
+                            <module>default</module>
+                            <controller>rest</controller>
+                            <action>colleges</action>
+                            <id />
+                        </defaults>
+                    </restcolleges>
+                    <restdepartments>
+                        <route>/rest/departments/:id</route>
+                        <defaults>
+                            <module>default</module>
+                            <controller>rest</controller>
+                            <action>departments</action>
+                            <id />
+                        </defaults>
+                    </restdepartments>
+                    <restdepartmentsbycollege>
+                        <route>/rest/departmentsbycollege/:id</route>
+                        <defaults>
+                            <module>default</module>
+                            <controller>rest</controller>
+                            <action>departmentsbycollege</action>
+                            <id />
+                        </defaults>
+                    </restdepartmentsbycollege>
+                </routes>
+              </router>
+        </resources>
+    </production>
+    <development zf:extends="production">
+        <phpSettings>
+            <display_errors>1</display_errors>
+            <display_startup_errors>1</display_startup_errors>
+        </phpSettings>
+        <resources>
+            <frontController>
+                <params>
+                    <displayExceptions>1</displayExceptions>
+                </params>
+            </frontController>
+        </resources>
+    </development>
 </application>

@@ -1,8 +1,0 @@
-Post message_from_email, message_from_name, message_subject, message_body, and visible_to to /admin/emailtemplate/doedit/
-
-Where visible_to is an array of values containing a department's unique id.
-
-An administrator should also be able to add new colleges and departments from this page using AJAX.  
-
-Posting college_name to /admin/addcollege will cause the server to respond with the JSON object {result: 'success',c_id: {college's unique id}} on success, or {result: 'fail',message: "Error Details"} on failure.
-Posting department_name and parent_c_id to /admin/adddepartment will cause the server to respond with the JSON object {result: 'success',d_id: {department's unique id}} on success, or {result: 'fail',message: "Error Details"} on failure.

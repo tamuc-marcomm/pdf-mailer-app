@@ -1,6 +1,7 @@
 <?php
 
 class Application_Model_Table_Departments extends Zend_Db_Table_Abstract{
+<<<<<<< HEAD
 	protected $_name = 'departments';
 
 	/**
@@ -19,4 +20,7 @@ class Application_Model_Table_Departments extends Zend_Db_Table_Abstract{
 		}
 		return $departments;
 	}
+=======
+    protected $_name = 'departments';
+>>>>>>> f5032723b31c2ec9a2afe97952d698f26015ca9c
 }

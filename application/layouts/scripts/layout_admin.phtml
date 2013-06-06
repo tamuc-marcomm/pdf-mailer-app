@@ -8,7 +8,7 @@ $this->headTitle('Work Thing');
 <head>
     <?php echo $this->headMeta();?>
     <?php echo $this->headTitle();?>
-	<link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
 
     <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/admin/main.css')); ?>
     <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/admin/jquery.dataTables.css')); ?>
@@ -20,18 +20,18 @@ $this->headTitle('Work Thing');
 </head>
 <body>
 <div class="header">
-	<a href="<?php echo $this->baseUrl('/admin'); ?>">ARMS</a>
+    <a href="<?php echo $this->baseUrl('/admin'); ?>">ARMS</a>
 
-	<div class="navigation">
-		<ul class="nav">
-			<li><a href="Users">Users</a></li>
-			<li><a href="/admin/content">Content</a></li>
-			<li><a href="Logout">Logout</a></li>
-		</ul>
-	</div>
+    <div class="navigation">
+        <ul class="nav">
+            <li><a href="Users">Users</a></li>
+            <li><a href="/admin/content">Content</a></li>
+            <li><a href="Logout">Logout</a></li>
+        </ul>
+    </div>
 </div>
 <div class="content">
-   	<?php echo $this->layout()->content; ?>
+       <?php echo $this->layout()->content; ?>
 </div>
 <script>
 $(document).ready(function() {
