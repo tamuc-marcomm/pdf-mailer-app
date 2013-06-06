@@ -8,5 +8,7 @@ class Admin_ContentController extends Zend_Controller_Action{
 	
 	public function editAction(){}
 	
+	public function doeditAction(){}
+	
     public function indexAction(){}
 }
