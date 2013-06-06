@@ -8,15 +8,27 @@ $this->headTitle('Strixa Game Designs');
 <head>
     <?php echo $this->headMeta();?>
     <?php echo $this->headTitle();?>
-	
+	<link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
+
     <?php $this->headLink()->appendStylesheet($this->baseUrl().'/css/admin/main.css'); ?>
 	<?php echo $this->headLink(); ?>
 </head>
 <body>
-	Variables available to view:
-      messages:  Array of arrays where each array is comprised of an element with key 'type' whose value will be one of 'negative', 'neutral', or 'positive' and key 'message' whose value is a string that represents something the server wishes to communicate with teh user.
+<div class="header">
+	<a href="<?php echo $this->baseUrl('/admin'); ?>">ARMS</a>
 
-
+	<div class="navigation">
+		<ul class="nav">
+			<li><a href="Users">Users</a></li>
+			<li><a href="/admin/emailtemplate">Content</a></li>
+			<li><a href="Logout">Logout</a></li>
+		</ul>
+	</div>
+</div>
+<div class="content">
    	<?php echo $this->layout()->content; ?>
+</div>
+
+
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 class Application_Plugins_TrafficDirector extends Zend_Controller_Plugin_Abstract{
 	public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request){
-		$this->_redirectLogin($request);
+		//$this->_redirectLogin($request);
 	}
 
 	protected function _redirectLogin(Zend_Controller_Request_Abstract &$request){
