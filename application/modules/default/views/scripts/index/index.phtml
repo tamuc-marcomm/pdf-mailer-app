@@ -1,0 +1,72 @@
+<div id="content-first">
+	<div class="header">
+		Admissions Resource
+	</div>
+	<ul>
+		<li id="a-and-s">
+			<span class="main-text">
+				College of Arts and Science
+			</span>
+			<span class="ficons">
+				<i class="icon-angle-right"></i> 
+			</span>
+		</li>
+		<li>
+			<span class="main-text">
+				College of Business
+			</span>
+			<span class="ficons">
+				<i class="icon-angle-right"></i> 
+			</span>
+		</li>
+		<li>
+			<span class="main-text">
+				College of E&amp;HS
+			</span>
+			<span class="ficons">
+				<i class="icon-angle-right"></i> 
+			</span>
+		</li>
+		<li>
+			<span class="main-text">
+				College of HSS&amp;A
+			</span>
+			<span class="ficons">
+				<i class="icon-angle-right"></i> 
+			</span>
+		</li>
+	</ul>
+</div>
+
+<div id="content-second" style="background-color: purple !important;">
+	<div class="header" id="header-second-page">
+		<i class="icon-angle-left"></i>
+	</div>
+</div>
+
+<script>
+$('#a-and-s').click(function() {
+	$('#content-first').animate({
+		right: '100%'
+	}, 500, function() {
+	});
+	$('#content-second').animate({
+		left: '0%'
+	}, 500, function() {
+
+	});
+});
+
+$('#header-second-page').click(function() {
+	$('#content-first').animate({
+		right: '0%'
+	}, 500);
+	$('#content-second').animate({
+		left: '100%'
+	}, 500, function() {
+		console.log("here");
+	});
+});
+
+
+</script>

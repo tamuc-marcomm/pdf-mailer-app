@@ -1,0 +1,53 @@
+body, html {
+	padding: 0;
+	margin: 0;
+	font-family: 'Oswald', sans-serif;
+}
+
+.header {
+	height: 70px;
+	background-color: #043049;
+	color: white;
+	line-height: 70px;
+	font-size; 60px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+.header a {
+	text-decoration: none;
+	color: white;
+	display: inline-block;
+}
+.navigation {
+	display: inline-block;
+	float: right;
+}
+ul.nav {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.nav {
+	display: inline-block;
+}
+ul.nav li {
+	display: inline-block;
+	height: 70px;
+	margin: 0;
+	line-height: 70px;
+	padding-left: 20px;
+}
+
+.content {
+	box-sizing: border-box;
+	padding: 50px;
+	margin-top: 50px;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 3px;
+	background: #eee;
+	min-height: 200px;
+}
+.header img {
+}

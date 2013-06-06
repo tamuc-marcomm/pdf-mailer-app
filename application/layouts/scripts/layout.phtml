@@ -8,15 +8,15 @@ $this->headTitle('Strixa Game Designs');
 <head>
     <?php echo $this->headMeta();?>
     <?php echo $this->headTitle();?>
+	<link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
+
 	
     <?php $this->headLink()->appendStylesheet($this->baseUrl().'/css/default/main.css'); ?>
+    <?php $this->headLink()->appendStylesheet($this->baseUrl().'/css/default/font-awesome.min.css'); ?>
+    <?php echo $this->headScript()->appendFile($this->baseUrl('/js/jquery.js')); ?>
 	<?php echo $this->headLink(); ?>
 </head>
 <body>
-	Variables available to view:
-      messages:  Array of arrays where each array is comprised of an element with key 'type' whose value will be one of 'negative', 'neutral', or 'positive' and key 'message' whose value is a string that represents something the server wishes to communicate with teh user.
-
-
    	<?php echo $this->layout()->content; ?>
 </body>
 </html>
