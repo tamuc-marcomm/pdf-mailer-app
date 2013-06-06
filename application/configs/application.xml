@@ -3,7 +3,8 @@
 	<production>
 		<appnamespace>Application</appnamespace>
 		<autoloaderNamespaces>
-			<Application_Controllers_Plugins>application_controllers_plugins_</Application_Controllers_Plugins>
+			<application>Application_</application>
+			<strixa>Strixa_</strixa>
 		</autoloaderNamespaces>
 		<bootstrap>
 			<class>Bootstrap</class>
@@ -31,13 +32,14 @@
 				</params>
 			</db>
 			<frontController>
-				<actionhelperpaths>
-					<Application_Controllers_Helpers><zf:const zf:name="APPLICATION_PATH" />/controllers/helpers</Application_Controllers_Helpers>
-				</actionhelperpaths>
-				<controllerDirectory><zf:const zf:name="APPLICATION_PATH" />/controllers</controllerDirectory>
+				<moduleDirectory><zf:const zf:name="APPLICATION_PATH" />/modules/</moduleDirectory>
 				<params>
 					<displayExceptions>0</displayExceptions>
 				</params>
+				<plugins>
+					<UserSetter>Application_Plugins_UserSetter</UserSetter>
+					<TrafficDirector>Application_Plugins_TrafficDirector</TrafficDirector>
+				</plugins>
 			</frontController>
 			<layout>
 				<layoutPath><zf:const zf:name="APPLICATION_PATH" />/layouts/scripts/</layoutPath>

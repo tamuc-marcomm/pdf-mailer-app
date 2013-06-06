@@ -13,6 +13,10 @@ $this->headTitle('Strixa Game Designs');
 	<?php echo $this->headLink(); ?>
 </head>
 <body>
+	Variables available to view:
+      messages:  Array of arrays where each array is comprised of an element with key 'type' whose value will be one of 'negative', 'neutral', or 'positive' and key 'message' whose value is a string that represents something the server wishes to communicate with teh user.
+
+
    	<?php echo $this->layout()->content; ?>
 </body>
 </html>
