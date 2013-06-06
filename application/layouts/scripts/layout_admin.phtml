@@ -11,6 +11,11 @@ $this->headTitle('Work Thing');
 	<link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
 
     <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/admin/main.css')); ?>
+    <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/admin/jquery.dataTables.css')); ?>
+
+    <?php echo $this->headScript()->appendFile($this->baseUrl('/js/jquery.js')); ?>
+    <?php echo $this->headScript()->appendFile($this->baseUrl('/js/jquery.dataTables.min.js')); ?>
+
 	<?php echo $this->headLink(); ?>
 </head>
 <body>
@@ -28,7 +33,10 @@ $this->headTitle('Work Thing');
 <div class="content">
    	<?php echo $this->layout()->content; ?>
 </div>
-
-
+<script>
+$(document).ready(function() {
+	$('#dataTable').dataTable();
+});
+</script>
 </body>
 </html>
