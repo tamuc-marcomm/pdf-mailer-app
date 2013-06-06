@@ -1,8 +1,28 @@
-Post message_from_email, message_from_name, message_subject, message_body, and visible_to to /admin/emailtemplate/doedit/
+<form action="<?php echo $this->baseUrl('/admin/content/doedit'); ?>" method="post">
+	<div class="form-elements">
+		<label for="message_subject">Subject</label>
+		<div class="form-controls">
+			<input type="text" name="message_subject" />
+		</div>
+	</div>
+	<div class="form-elements">
+		<label for="message_body">Body</label>
+		<div class="form-controls">
+			<textarea name="message_body" rows="30" cols="50"></textarea>
+		</div>
+	</div>
+	<div class="form-elements">
+	<?php foreach (($this->departments) as $department) : ?>
+		<span class="cb-holder">
+		<label for="department_<?php echo $department->id; ?>"><?php echo $department->name; ?></label>		
+		<input type="checkbox" name="department[]" id="<?php echo $department->id; ?> " />
+		</span>
+	<?php endforeach; ?>
+	</div>
+	<div class="form-elements">
+		<div class="form-controls">
+			<input type="submit" value="Submit">
+		</div>
+	</div>
+</form>
 
-Where visible_to is an array of values containing a department's unique id.
-
-An administrator should also be able to add new colleges and departments from this page using AJAX.  
-
-Posting college_name to /admin/addcollege will cause the server to respond with the JSON object {result: 'success',c_id: {college's unique id}} on success, or {result: 'fail',message: "Error Details"} on failure.
-Posting department_name and parent_c_id to /admin/adddepartment will cause the server to respond with the JSON object {result: 'success',d_id: {department's unique id}} on success, or {result: 'fail',message: "Error Details"} on failure.
