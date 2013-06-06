@@ -1,5 +1,5 @@
 <?php
-class Admin_EmailtemplateController extends Zend_Controller_Action{
+class Admin_ContentController extends Zend_Controller_Action{
     public function init(){
 		$this->_helper->layout->setLayout('layout_admin');
 	}
@@ -9,5 +9,4 @@ class Admin_EmailtemplateController extends Zend_Controller_Action{
 	public function editAction(){}
 	
     public function indexAction(){}
-	
 }

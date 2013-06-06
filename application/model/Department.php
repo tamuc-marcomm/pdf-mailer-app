@@ -8,16 +8,16 @@ class Application_Model_Department extends Strixa_Model_Abstract{
 	/*[END] Constructors and Destructor*/
 	
 	/*[BEGIN] Getter/Setter Methods*/
-		public function getEmailtemplates(){
-			$table = new Application_Model_Table_DepartmentEmailtemplates();
-			$templates = array();
+		public function getContent(){
+			$table = new Application_Model_Table_ContentByDepartment();
+			$content = array();
 			
 			
-			$templates_by_department = $table->fetchAll("d_id = {$this->d_id}");
-			foreach($templates_by_department as $row){
-				$templates[] = new Application_Model_Template($row->et_id);
+			$content_by_department = $table->fetchAll("d_id = {$this->d_id}");
+			foreach($content_by_department as $row){
+				$content[] = new Application_Model_Content($row->et_id);
 			}
-			return $templates;
+			return $content;
 		}
 	/*[END] Getter/Setter Methods*/
 }

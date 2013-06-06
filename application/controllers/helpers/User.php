@@ -6,7 +6,7 @@ class Application_Controllers_Helpers_User extends Zend_Controller_Action_Helper
 		if(!$authentication_adapter->authenticate()->isValid()){
 			return false;
 		}else{
-			$table = new Application_Model_DbTable_Users();
+			$table = new Application_Model_Table_Users();
 			$ldap_account_object = $authentication_adapter->getAccountObject();
             
 			
@@ -31,10 +31,10 @@ class Application_Controllers_Helpers_User extends Zend_Controller_Action_Helper
 	}
 	
 	public function getAuthenticationAdapter($username,$password){
-		$ldap_configuration = (new Zend_Config_Xml(APPLICATION_PATH.'/configs/ldap.xml','production'))->toArray();
+		$configuration = new Zend_Config_Xml(APPLICATION_PATH.'/configs/ldap.xml','production');
         
         
-        return new Zend_Auth_Adapter_Ldap($ldap_configuration,$username,$password);
+        return new Zend_Auth_Adapter_Ldap($configuration->toArray(),$username,$password);
 	}
 	
 	public function logout(){

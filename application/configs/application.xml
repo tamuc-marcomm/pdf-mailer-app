@@ -76,24 +76,24 @@
 							<id />
 						</defaults>
 					</restdepartments>
-					<restemailtemplates>
-						<route>/rest/emailtemplates/:id</route>
+					<restcontent>
+						<route>/rest/content/:id</route>
 						<defaults>
 							<module>default</module>
 							<controller>rest</controller>
-							<action>emailtemplates</action>
+							<action>content</action>
 							<id />
 						</defaults>
-					</restemailtemplates>
-					<restemailtemplatesbydepartment>
-						<route>/rest/emailtemplatesbydepartment/:id</route>
+					</restcontent>
+					<restcontentbydepartment>
+						<route>/rest/contentbydepartment/:id</route>
 						<defaults>
 							<module>default</module>
 							<controller>rest</controller>
-							<action>emailtemplatesbydepartment</action>
+							<action>contentbydepartment</action>
 							<id />
 						</defaults>
-					</restemailtemplatesbydepartment>
+					</restcontentbydepartment>
 					<restdepartmentsbycollege>
 						<route>/rest/departmentsbycollege/:id</route>
 						<defaults>
