@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ldap_configuration>
+	<production>
+		<server>
+			<host>tamu-commerce.edu</host>
+			<port>389</port>
+			<accountCanonicalForm>3</accountCanonicalForm>
+			<accountDomainName>ctis</accountDomainName>
+			<accountDomainNameShort>ctis</accountDomainNameShort>
+			<baseDn>ou=All_Users,dc=tamu-commerce,dc=edu</baseDn>
+		</server>
+	</production>
+</ldap_configuration>
