@@ -3,38 +3,16 @@
         Admissions Resource
     </div>
     <ul>
-        <li id="a-and-s">
+        <?php foreach($this->colleges as $college) : ?>
+        <li class="clicksy" id="<?php echo $college->id; ?>">
             <span class="main-text">
-                College of Arts and Science
+                <?php echo $college->name; ?>
             </span>
             <span class="ficons">
-                <i class="icon-angle-right"></i> 
+                <i class="icon-angle-right"></i>
             </span>
         </li>
-        <li>
-            <span class="main-text">
-                College of Business
-            </span>
-            <span class="ficons">
-                <i class="icon-angle-right"></i> 
-            </span>
-        </li>
-        <li>
-            <span class="main-text">
-                College of E&amp;HS
-            </span>
-            <span class="ficons">
-                <i class="icon-angle-right"></i> 
-            </span>
-        </li>
-        <li>
-            <span class="main-text">
-                College of HSS&amp;A
-            </span>
-            <span class="ficons">
-                <i class="icon-angle-right"></i> 
-            </span>
-        </li>
+        <?php endforeach;?>
     </ul>
 </div>
 
@@ -42,10 +20,12 @@
     <div class="header" id="header-second-page">
         <i class="icon-angle-left"></i>
     </div>
+    <ul id="second-list">
+    </ul>
 </div>
 
 <script>
-$('#a-and-s').click(function() {
+$('.clicksy').click(function() {
     $('#content-first').animate({
         right: '100%'
     }, 500, function() {
@@ -53,7 +33,14 @@ $('#a-and-s').click(function() {
     $('#content-second').animate({
         left: '0%'
     }, 500, function() {
-
+        $.ajax({
+            type: "GET",
+            url: "<?php echo $this->url(array('id' => '4'), 'restdepartmentsbycollege', true); ?>",
+            success: function(data) {
+                $('#second-list').append('<li><span class="main-text"> asdf </span> </li>');
+                console.log(data);
+            }
+        });
     });
 });
 
