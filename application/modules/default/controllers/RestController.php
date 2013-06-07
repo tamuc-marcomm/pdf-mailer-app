@@ -61,7 +61,7 @@ class RestController extends Zend_Controller_Action{
         }else if($id < 1){
             $this->_helper->json(array('status' => 'success','message' => 'First argument passed (College ID) must be a value greater than or equal to one.'));
         }else{
-            $data[] = $table->fetchAll("parent={$id}")->toArray();
+            $data = $table->fetchAll("parent={$id}")->toArray();
         }
         
         $this->_helper->json(array('status' => 'success','data' => $data));
