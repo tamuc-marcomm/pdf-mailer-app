@@ -4,13 +4,11 @@
     </div>
     <ul>
         <?php foreach($this->colleges as $college) : ?>
-        <li class="clicksy" id="<?php echo $college->id; ?>">
-            <span class="main-text">
+        <li class="clicksy fc-text" id="<?php echo $college->id; ?>">
                 <?php echo $college->name; ?>
-            </span>
-            <span class="ficons">
-                <i class="icon-angle-right"></i>
-            </span>
+                <!--span class="ficons"-->
+                <!--0i class="icon-angle-right"></i>
+            <!--span-->
         </li>
         <?php endforeach;?>
     </ul>
@@ -26,32 +24,42 @@
 
 <script>
 $('.clicksy').click(function() {
+        $.ajax({
+            type: "GET",
+            url: "<?php echo $this->url(array(), 'restdepartmentsbycollege', true); ?>/" + $(this).attr('id'),
+            success: function(data) {
+                $.each(data.data, function(val) {
+                    var list_element = $('<li>').addClass('sc-text').text(this.name);
+                    var span_element = $('<span>').attr('id', 'sicons');
+                    span_element.append($('<a>').attr('href', "mailto:?Subject=" + encodeURIComponent(this.email_subject) + "&Body=" + encodeURIComponent(this.email_body)).addClass('mail-link'));
+                    list_element.append(span_element);
+                    span_element.append($('<a>').attr('href', this.pdf_link).addClass('pdf-link'));
+                    $('#second-list').append(list_element);
+                });
+            }
+        });
     $('#content-first').animate({
         right: '100%'
     }, 500, function() {
+        $(this).toggle();
     });
-    $('#content-second').animate({
+    $('#content-second').toggle().animate({
         left: '0%'
     }, 500, function() {
-        $.ajax({
-            type: "GET",
-            url: "<?php echo $this->url(array('id' => '4'), 'restdepartmentsbycollege', true); ?>",
-            success: function(data) {
-                $('#second-list').append('<li><span class="main-text"> asdf </span> </li>');
-                console.log(data);
-            }
-        });
+        
     });
 });
 
 $('#header-second-page').click(function() {
-    $('#content-first').animate({
+    $('#content-first').toggle().animate({
         right: '0%'
-    }, 500);
+    }, 500, function() {
+    });
     $('#content-second').animate({
         left: '100%'
     }, 500, function() {
-        console.log("here");
+        $(this).toggle();
+        $('#second-list').empty();
     });
 });
 

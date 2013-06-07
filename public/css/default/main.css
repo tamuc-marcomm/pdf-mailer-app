@@ -89,7 +89,6 @@ span.main-text {
 	margin: 0;
 	height: 250px;
 	display: inline-block;
-	accordion-style-type: none;
 	color: #062e48;
 	line-height: 250px;
 	font-size: 60px;
@@ -97,6 +96,7 @@ span.main-text {
 	box-sizing: border-box;
 	padding-left: 15px;
 	overflow: hidden;
+	width: 75%;
 }
 .icons {
 	float: right;
@@ -141,11 +141,11 @@ i {
 	margin: 0;
 }
 .ficons {
-	line-height: 250px;
-	margin-top: 60px;
-	font-size: 120px;
+	display: inline-block;
+	padding-top: ;
 	float: right;
 	margin-right: 30px;
+	height: 100%;
 }
 #content-first {
 	position: absolute;
@@ -153,8 +153,45 @@ i {
 
 }
 #content-second {
+	display: none;
 	background-color: #fff;
 	position: absolute;
 	left: 100%;
 	width: 100%;
+}
+.mail-link {
+	background: url('/images/mail-link.png');
+	display: inline-block;
+	width: 64px;
+	height: 64px;
+	text-decoration :none;
+}
+
+.pdf-link {
+	background: url('/images/pdf-link.png');
+	display: inline-block;
+	width: 64px;
+	height: 64px;
+	text-decoration: none;
+}
+.fc-text {
+	font-family: Oswald, sans-serif;
+	padding: 70px 15px 70px 15px;
+	font-size: 60px;
+}
+.fc-text:after {
+	display: inline-block;
+	height: 100%;
+	float: right;
+	content: '>';
+	font-size: 60px;
+}
+.sc-text {
+	padding: 70px 15px 70px 15px;
+	font-size: 60px;
+}
+#sicons {
+	float: right;
+	margin: -70px 0;
+	padding: 74px 0 0 0;
 }

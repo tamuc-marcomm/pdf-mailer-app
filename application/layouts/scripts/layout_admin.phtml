@@ -12,9 +12,11 @@ $this->headTitle('Work Thing');
 
     <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/admin/main.css')); ?>
     <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/admin/jquery.dataTables.css')); ?>
+    <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/admin/demo_table_jui.css')); ?>
 
     <?php echo $this->headScript()->appendFile($this->baseUrl('/js/jquery.js')); ?>
     <?php echo $this->headScript()->appendFile($this->baseUrl('/js/jquery.dataTables.min.js')); ?>
+
 
 	<?php echo $this->headLink(); ?>
 </head>
