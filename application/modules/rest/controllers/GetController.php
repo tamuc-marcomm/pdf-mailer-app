@@ -1,6 +1,6 @@
 <?php
 
-class GetController extends Zend_Controller_Action{
+class Rest_GetController extends Zend_Controller_Action{
     protected $_models = array(
         'colleges' => array(
             'table_class' => 'Application_Model_Table_Colleges',
@@ -27,8 +27,6 @@ class GetController extends Zend_Controller_Action{
             'table_class' => 'Application_Model_Table_Users'
         )
     );
-
-    //TODO:  Make the REST services a module in its own right.
 
     public function getAction(){
         $data = array();

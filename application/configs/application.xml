@@ -48,43 +48,18 @@
                 <layoutPath><zf:const zf:name="APPLICATION_PATH" />/layouts/scripts/</layoutPath>
             </layout>
             <router>
+                <chainNameSeparator>/</chainNameSeparator>
                 <routes>
-                    <restusers>
-                        <route>/rest/users/:id</route>
+                    <rest>
+                        <route>/rest/:method/:model</route>
                         <defaults>
-                            <module>default</module>
-                            <controller>rest</controller>
-                            <action>users</action>
-                            <id />
+                            <module>rest</module>
+                            <controller>get</controller>
+                            <action>get</action>
+                            <method />
+                            <model />
                         </defaults>
-                    </restusers>
-                    <restcolleges>
-                        <route>/rest/colleges/:id</route>
-                        <defaults>
-                            <module>default</module>
-                            <controller>rest</controller>
-                            <action>colleges</action>
-                            <id />
-                        </defaults>
-                    </restcolleges>
-                    <restdepartments>
-                        <route>/rest/departments/:id</route>
-                        <defaults>
-                            <module>default</module>
-                            <controller>rest</controller>
-                            <action>departments</action>
-                            <id />
-                        </defaults>
-                    </restdepartments>
-                    <restdepartmentsbycollege>
-                        <route>/rest/departmentsbycollege/:id</route>
-                        <defaults>
-                            <module>default</module>
-                            <controller>rest</controller>
-                            <action>departmentsbycollege</action>
-                            <id />
-                        </defaults>
-                    </restdepartmentsbycollege>
+                    </rest>
                 </routes>
               </router>
         </resources>
