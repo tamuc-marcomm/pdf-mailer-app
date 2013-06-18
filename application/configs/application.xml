@@ -21,6 +21,9 @@
             <display_errors>0</display_errors>
             <display_startup_errors>0</display_startup_errors>
         </phpSettings>
+        <pluginPaths>
+            <Application_Resource><zf:const zf:name="APPLICATION_PATH" />/resource</Application_Resource>
+        </pluginPaths>
         <resources>
             <db>
                 <adapter>PDO_MYSQL</adapter>
@@ -47,44 +50,121 @@
             <layout>
                 <layoutPath><zf:const zf:name="APPLICATION_PATH" />/layouts/scripts/</layoutPath>
             </layout>
+            <rest>
+                <get>
+                    <colleges>
+                        <tableClass>Application_Model_Table_Colleges</tableClass>
+                        <filters>
+                            <id>
+                                <constraint>[1-9][0-9]*</constraint>
+                                <description>Any number larger than 0.</description>
+                                <filter>id = ?</filter>
+                            </id>
+                            <name>
+                                <description>Any number larger than 0.</description>
+                                <filter>name LIKE CONCAT('%',?,'%')</filter>
+                            </name>
+                        </filters>
+                    </colleges>
+                    <departments>
+                        <tableClass>Application_Model_Table_Departments</tableClass>
+                        <filters>
+                            <id>
+                                <constraint>[1-9][0-9]*</constraint>
+                                <description>Any number larger than 0.</description>
+                                <filter>id = ?</filter>
+                            </id>
+                            <name>
+                                <description>Any number larger than 0.</description>
+                                <filter>name LIKE CONCAT('%',?,'%')</filter>
+                            </name>
+                        </filters>
+                    </departments>
+                    <users>
+                        <tableClass>Application_Model_Table_Users</tableClass>
+                        <filters>
+                            <id>
+                                <constraint>[1-9][0-9]*</constraint>
+                                <description>Any number larger than 0.</description>
+                                <filter>id = ?</filter>
+                            </id>
+                        </filters>
+                        <requiresAuth>true</requiresAuth>
+                    </users>
+                    <departmentsbycollege>
+                        <type>relational</type>
+
+                        <relationship>1..*</relationship>
+                        <leftModel>colleges</leftModel>
+                        <rightModel>departments</rightModel>
+                        <leftColumn>id</leftColumn>
+                        <rightColumn>parent</rightColumn>
+                    </departmentsbycollege>
+                </get>
+            </rest>
             <router>
+                <chainNameSeparator>/</chainNameSeparator>
                 <routes>
-                    <restusers>
-                        <route>/rest/users/:id</route>
+                    <content>
+                        <route>/admin/content</route>
+                        <defaults>
+                            <module>admin</module>
+                            <controller>content</controller>
+                        </defaults>
+                        <chains>
+                            <edit>
+                                <route>/edit/:id/*</route>
+                                <defaults>
+                                    <action>edit</action>
+                                </defaults>
+                            </edit>
+                            <delete>
+                                <route>/delete/:id/*</route>
+                                <defaults>
+                                    <action>delete</action>
+                                </defaults>
+                            </delete>
+                        </chains>
+                    </content>
+                    <rest>
+                        <route>/rest</route>
                         <defaults>
                             <module>default</module>
                             <controller>rest</controller>
-                            <action>users</action>
-                            <id />
                         </defaults>
-                    </restusers>
-                    <restcolleges>
-                        <route>/rest/colleges/:id</route>
+                        <chains>
+                            <docs>
+                                <route>/docs/*</route>
+                            </docs>
+                            <io>
+                                <route>/:action/:model/*</route>
+                                <defaults>
+                                    <model />
+                                </defaults>
+                            </io>
+                        </chains>
+                    </rest>
+                    <users>
+                        <route>/admin/users</route>
                         <defaults>
-                            <module>default</module>
-                            <controller>rest</controller>
-                            <action>colleges</action>
-                            <id />
+                            <module>admin</module>
+                            <controller>users</controller>
                         </defaults>
-                    </restcolleges>
-                    <restdepartments>
-                        <route>/rest/departments/:id</route>
-                        <defaults>
-                            <module>default</module>
-                            <controller>rest</controller>
-                            <action>departments</action>
-                            <id />
-                        </defaults>
-                    </restdepartments>
-                    <restdepartmentsbycollege>
-                        <route>/rest/departmentsbycollege/:id</route>
-                        <defaults>
-                            <module>default</module>
-                            <controller>rest</controller>
-                            <action>departmentsbycollege</action>
-                            <id />
-                        </defaults>
-                    </restdepartmentsbycollege>
+                        <chains>
+                            <edit>
+                                <route>/edit/:id/*</route>
+                                <defaults>
+                                    <action>edit</action>
+                                </defaults>
+                            </edit>
+                            <delete>
+                                <route>/delete/:id/*</route>
+                                <defaults>
+                                    <action>delete</action>
+                                </defaults>
+                            </delete>
+                        </chains>
+                    </users>
                 </routes>
               </router>
         </resources>

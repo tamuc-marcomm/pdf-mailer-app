@@ -13,9 +13,9 @@ class Application_Model_College extends Strixa_Model_Abstract{
             $departments = array();
             
             
-            $department_rows = $table->fetchAll("d_id = {$this->d_id}");
-            foreach($department_rows as $department_row){
-                $departments[] = new Application_Model_Department($department_row->d_id);
+            $rowset = $table->fetchAll("parent = {$this->id}");
+            foreach($rowset as $row){
+                $departments[] = new Application_Model_Department($row);
             }
             return $departments;
         }

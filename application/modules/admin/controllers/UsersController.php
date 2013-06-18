@@ -1,10 +1,14 @@
 <?php
-class Admin_ContentController extends Zend_Controller_Action{
+class Admin_UsersController extends Zend_Controller_Action{
     public function init(){
 		$this->_helper->layout->setLayout('layout_admin');
 	}
 
 	public function addAction(){
+	}
+
+	public function doaddAction(){
+		
 	}
 	
 	public function deleteAction(){
@@ -16,7 +20,7 @@ class Admin_ContentController extends Zend_Controller_Action{
 		}
 
 		try{
-			$this->view->user = new Application_Model_Content($id);
+			$this->view->user = new Application_Model_User($id);
 		}catch(Zend_Exception $e){
 			throw new Zend_Controller_Action_Exception('The model for that id could not be found.',404);
 		}
@@ -31,14 +35,14 @@ class Admin_ContentController extends Zend_Controller_Action{
 		}
 
 		try{
-			$this->view->user = new Application_Model_Content($id);
+			$this->view->user = new Application_Model_User($id);
 		}catch(Zend_Exception $e){
 			throw new Zend_Controller_Action_Exception('The model for that id could not be found.',404);
 		}
 	}
 
     public function indexAction(){
-    	$this->view->departments = Application_Model_Table_Departments::getAllDepartments();
+    	$this->view->users = Application_Model_Table_Users::getAllUsers();
     }
 
 }

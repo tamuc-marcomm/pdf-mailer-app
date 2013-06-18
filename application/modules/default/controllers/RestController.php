@@ -1,69 +1,40 @@
 <?php
 
 class RestController extends Zend_Controller_Action{
-    public function collegesAction(){
-        $data = array();
-        $table = new Application_Model_Table_Colleges();
-        
-        $id = $this->getRequest()->getParam('id',null);
-        
-        
-        if(empty($id)){
-            $data = $table->fetchAll()->toArray();
-        }else if(!is_numeric($id)){
-            $this->_helper->json(array('status' => 'success','message' => 'First argument passed (College ID) must be a numeric value.'));
-        }else if($id < 1){
-            $this->_helper->json(array('status' => 'success','message' => 'First argument passed (College ID) must be a value greater than or equal to one.'));
-        }else{
-            $row = $table->fetchRow("id = {$id}");
-            if($row !== null){
-                $data = $row->toArray();
-            }
+    public function getAction(){
+        $failure = array('status' => 'failure','message' => null);
+        $table;
+
+
+        /*[BEGIN] Request Error Checking and Initialization*/
+        $model = $this->getRequest()->getParam('model');
+        if(empty($model)){
+            $failure['message'] = 'You must specify a model to retreive for this call to succeed.';
+            $this->_helper->json($failure);
         }
+
         
-        $this->_helper->json(array('status' => 'success','data' => $data));
-    }
-    
-    public function departmentsAction(){
-        $data = array();
-        $table = new Application_Model_Table_Departments();
-        
-        $id = $this->getRequest()->getParam('id',null);
-        
-        
-        if(empty($id)){
-            $data = $table->fetchAll()->toArray();
-        }else if(!is_numeric($id)){
-            $this->_helper->json(array('status' => 'success','message' => 'First argument passed (Department ID) must be a numeric value.'));
-        }else if($id < 1){
-            $this->_helper->json(array('status' => 'success','message' => 'First argument passed (Department ID) must be a value greater than or equal to one.'));
-        }else{
-            $row = $table->fetchRow("id = {$id}");
-            if($row !== null){
-                $data = $row->toArray();
-            }
+        if(!$this->_helper->rest->modelExists($model)){
+            $failure['message'] = "The requested model '$model' is not a valid model.  Please see '{$this->view->url(array(),'rest/docs',true)}' for valid requests and additional documentation.";
+            $this->_helper->json($failure);
         }
-        
-        $this->_helper->json(array('status' => 'success','data' => $data));
-    }
-    
-    public function departmentsbycollegeAction(){
-        $data = array();
-        $table = new Application_Model_Table_Departments();
-        
-        $id = $this->getRequest()->getParam('id',null);
-        
-        
-        if(empty($id)){
-            $this->_helper->json(array('status' => 'success','message' => 'First argument (College ID) is required.'));
-        }else if(!is_numeric($id)){
-            $this->_helper->json(array('status' => 'success','message' => 'First argument passed (College ID) must be a numeric value.'));
-        }else if($id < 1){
-            $this->_helper->json(array('status' => 'success','message' => 'First argument passed (College ID) must be a value greater than or equal to one.'));
-        }else{
-            $data = $table->fetchAll("parent={$id}")->toArray();
+
+        if($this->_helper->rest->requiresAuth($model) && !Zend_Registry::isRegistered('current_user')){
+            $failure['message'] = 'You must be logged in for this call to succeed.';
+            $this->_helper->json($failure);   
         }
-        
-        $this->_helper->json(array('status' => 'success','data' => $data));
+        /*[END] Request Error Checking*/
+
+        try{
+            $select = $this->_helper->rest->getSelect();
+            $this->_helper->rest->applyFilter($select);
+        }catch(Zend_Exception $e){
+            $failure['message'] = $e->getMessage();
+            $this->_helper->json($failure);
+        }
+
+        $select->order('id','asc');
+
+        $this->_helper->json(array('status' => 'success','data' => $select->query()->fetchAll()));
     }
 }
