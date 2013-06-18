@@ -16,16 +16,21 @@ class Application_Controllers_Helpers_Rest extends Zend_Controller_Action_Helper
     }
 
     public function applyFilter(Zend_Db_Table_Select $select,$model = null){
-        $model = !empty($model) ? $model : $this->getRequest()->getParam('model');
+        if(empty($model)){
+            $model = $this->getRequest()->getParam('model');
+        }
         $options = $this->direct($model);
-
 
         if($options === null){
             return null;
         }
+        if($this->isRelational($model)){
+            $model = $options['leftModel'];
+            $options = $this->direct($model);
+        }
 
-        $table = $this->isRelational() ? $this->getTable($options['primaryModel']) : $this->getTable($model);$table->info('name');
-        $filters = $options['filters'];
+        $table = $this->getTable($model)->info('name');
+        $filters = isset($options['filters']) ? $options['filters'] : array();
         foreach($filters as $name => $filter){
             $request_param_array = $this->getRequest()->getParam($name);
             if($request_param_array !== null){
@@ -49,7 +54,7 @@ class Application_Controllers_Helpers_Rest extends Zend_Controller_Action_Helper
                         throw new Zend_Exception($error);
                     }
 
-                    $select->where($filter['filter'],$request_param);
+                    $select->where("`$table`.".$filter['filter'],$request_param);
                 }
             }else{
                 if(isset($filter['required']) && $filter['required']){
@@ -80,14 +85,17 @@ class Application_Controllers_Helpers_Rest extends Zend_Controller_Action_Helper
                 if(!isset($options['relationship'])){
                     throw new Zend_Exception("Model '$model' does not contain the required 'relationship' node.  Please add this node to the rest configuration options for '$model'.");
                 }
-                if(!isset($options['primaryModel'])){
-                    throw new Zend_Exception("Model '$model' does not contain the required 'primaryModel' node.  Please add this node to the rest configuration options for '$model'.");
+                if(!isset($options['leftModel'])){
+                    throw new Zend_Exception("Model '$model' does not contain the required 'leftModel' node.  Please add this node to the rest configuration options for '$model'.");
                 }
-                if(!isset($options['secondaryModel'])){
-                    throw new Zend_Exception("Model '$model' does not contain the required 'secondaryModel' node.  Please add this node to the rest configuration options for '$model'.");
+                if(!isset($options['rightModel'])){
+                    throw new Zend_Exception("Model '$model' does not contain the required 'rightModel' node.  Please add this node to the rest configuration options for '$model'.");
                 }
-                if(!isset($options['glue'])){
-                    throw new Zend_Exception("Model '$model' does not contain the required 'glue' node.  Please add this node to the rest configuration options for '$model'.");
+                if(!isset($options['leftColumn'])){
+                    throw new Zend_Exception("Model '$model' does not contain the required 'leftColumn' node.  Please add this node to the rest configuration options for '$model'.");
+                }
+                if(!isset($options['rightColumn'])){
+                    throw new Zend_Exception("Model '$model' does not contain the required 'rightColumn' node.  Please add this node to the rest configuration options for '$model'.");
                 }
 
                 switch($options['relationship']){
@@ -111,10 +119,10 @@ class Application_Controllers_Helpers_Rest extends Zend_Controller_Action_Helper
 
                 break;
             case 'relational':
-                $select = $this->getSelect($options['secondaryModel']);;
+                $select = $this->getSelect($options['rightModel']);;
                 $select->join(
-                    $this->getTable($options['primaryModel'])->info('name'),
-                    "`".$this->getTable($options['secondaryModel'])->info('name')."`.{$options['glue']} = `".$this->getTable($options['primaryModel'])->info('name')."`.{$options['glue']}",array()
+                    $this->getTable($options['leftModel'])->info('name'),
+                    "`".$this->getTable($options['rightModel'])->info('name')."`.{$options['rightColumn']} = `".$this->getTable($options['leftModel'])->info('name')."`.{$options['leftColumn']}",array()
                 );
 
                 break;
@@ -132,7 +140,7 @@ class Application_Controllers_Helpers_Rest extends Zend_Controller_Action_Helper
 
         if($options === null){
             throw new Zend_Exception("Requested model '$model' does not exist.");
-        }else if($this->isRelational()){
+        }else if($this->isRelational($model)){
             throw new Zend_Exception("Cannot retrieve table for relational model '$model'.");
         }else if(!isset($options['tableClass'])){
             throw new Zend_Exception("Model '$model' does not contain the required 'tableClass' node.  Please add this node to the rest configuration options for '$model'.");
@@ -152,10 +160,10 @@ class Application_Controllers_Helpers_Rest extends Zend_Controller_Action_Helper
         $options = $this->direct($model);        
 
 
-        if(!isset($options['type']) || $options['type'] == 'nonrelational'){
-            return false;
-        }else{
+        if(isset($options['type']) && $options['type'] == 'relational'){
             return true;
+        }else{
+            return false;
         }
     }
 

@@ -95,9 +95,10 @@
                         <type>relational</type>
 
                         <relationship>1..*</relationship>
-                        <primaryModel>colleges</primaryModel>
-                        <secondaryModel>departments</secondaryModel>
-                        <glue>id</glue>
+                        <leftModel>colleges</leftModel>
+                        <rightModel>departments</rightModel>
+                        <leftColumn>id</leftColumn>
+                        <rightColumn>parent</rightColumn>
                     </departmentsbycollege>
                 </get>
             </rest>
@@ -107,19 +108,19 @@
                     <rest>
                         <route>/rest</route>
                         <defaults>
-                            <module>rest</module>
+                            <module>default</module>
                             <controller>rest</controller>
                         </defaults>
                         <chains>
                             <docs>
                                 <route>/docs/*</route>
                             </docs>
-                            <manip>
+                            <io>
                                 <route>/:action/:model/*</route>
                                 <defaults>
                                     <model />
                                 </defaults>
-                            </manip>
+                            </io>
                         </chains>
                     </rest>
                 </routes>
