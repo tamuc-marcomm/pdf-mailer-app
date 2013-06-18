@@ -1,0 +1,15 @@
+<form action="<?php echo $this->baseUrl('/admin/colleges/doedit'); ?>" method="post">
+	<div class="form-elements">
+		<label for="name">Name</label>
+		<div class="form-controls">
+			<input type="text" name="name" value="<?php echo $this->college->name; ?>"/>
+		</div>
+	</div>
+	<input type="hidden" name="id" value="<?php echo $this->id; ?>" />
+	<div class="form-elements">
+		<div class="form-controls">
+			<input type="submit" value="Submit">
+		</div>
+	</div>
+</form>
+

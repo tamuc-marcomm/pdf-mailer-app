@@ -1,0 +1,45 @@
+<form action="<?php echo $this->baseUrl('/admin/resource/doedit'); ?>" method="post">
+	<div class="form-elements">
+		<label for="name">Name</label>
+		<div class="form-controls">
+			<input type="text" name="name" value="<?php echo $this->resource->name; ?>"/>
+		</div>
+	</div>
+	<div class="form-elements">
+		<label for="message_subject">Subject</label>
+		<div class="form-controls">
+			<input type="text" name="email_subject" value="<?php echo $this->resource->email_subject; ?>"/>
+		</div>
+	</div>
+	<div class="form-elements">
+		<label for="message_body">Body</label>
+		<div class="form-controls">
+			<textarea name="email_body" rows="30" cols="50"><?php echo $this->resource->email_body; ?></textarea>
+		</div>
+	</div>
+	<div class="form-elements">
+		<label for="pdf_link">PDF URL</label>
+		<div class="form-controls">
+			<input type="text" name="pdf_link" value="<?php echo $this->resource->pdf_link; ?>"/>
+		</div>
+	</div>
+	<input type="hidden" value="<?php echo $this->id;?>" name="id"/>
+	<div class="form-elements">
+		<label for="parent">Parent Department</label>
+		<div class="form-controls">
+			<select name="parent">
+				<?php foreach($this->departments as $department) : ?>
+					<option <?php if ($this->resource->parent == $department->id) echo "selected='selected'"; ?>value="<?php echo $department->id; ?>">
+						<?php echo $department->name; ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		</div>
+	</div>
+	<div class="form-elements">
+		<div class="form-controls">
+			<input type="submit" value="Submit">
+		</div>
+	</div>
+</form>
+

@@ -1,0 +1,27 @@
+<form action="<?php echo $this->baseUrl('/admin/departments/doedit'); ?>" method="post">
+	<div class="form-elements">
+		<label for="name">Name</label>
+		<div class="form-controls">
+			<input type="text" name="name" value="<?php echo $this->department->name; ?>"/>
+		</div>
+	</div>
+	<input type="hidden" value="<?php echo $this->id; ?>" name="id" />
+	<div class="form-elements">
+		<label for="parent">Parent College</label>
+		<div class="form-controls">
+			<select name="parent">
+				<?php foreach($this->colleges as $college) : ?>
+					<option <?php if ($this->department->parent == $college->id) echo "selected='selected'"; ?> value="<?php echo $college->id; ?>">
+						<?php echo $college->name; ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		</div>
+	</div>
+	<div class="form-elements">
+		<div class="form-controls">
+			<input type="submit" value="Submit">
+		</div>
+	</div>
+</form>
+

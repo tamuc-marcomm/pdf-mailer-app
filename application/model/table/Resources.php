@@ -11,8 +11,8 @@ class Application_Model_Table_Resources extends Zend_Db_Table_Abstract{
 		$rowset = $table->fetchAll();
 		$resources = array();
 		foreach($rowset as $row){
-			$resources[] = new Application_Model_Content($row);
+			$resources[] = new Application_Model_Resource($row);
 		}
-		return $resouces;
+		return $resources;
 	}
 }

@@ -14,10 +14,11 @@ class Admin_DepartmentsController extends Zend_Controller_Action{
 
 		try{
 			$table = new Application_Model_Table_Departments();
-			$table->delete(array("id = ?",$id));
+			$table->delete("id = $id");
 		}catch(Zend_Exception $e){
 			throw new Zend_Controller_Action_Exception('The model for that id could not be found.',404);
 		}
+		$this->_helper->redirector('index');
 	}
 
 	public function editAction(){
@@ -27,8 +28,8 @@ class Admin_DepartmentsController extends Zend_Controller_Action{
 		$table = new Application_Model_Table_Departments();
 		$this->view->colleges = Application_Model_Table_Colleges::getAllColleges();
 		if($this->getRequest()->getParam('new',false)){
-			$This->view->id = 0;
-			$this->view->resource = $table->createRow();
+			$this->view->id = 0;
+			$this->view->department = $table->createRow();
 		}else{
 			if($id == null){
 				throw new Zend_Controller_Action_Exception('A model id must be supplied when navigating to this action.',404);
@@ -56,8 +57,9 @@ class Admin_DepartmentsController extends Zend_Controller_Action{
 			new Application_Model_Department($data);
 		}else{
 			$table = new Application_Model_Table_Departments();
-			$table->update($data,array('id = ?',$id));
+			$table->update($data, "id = $id");
 		}
+		$this->_helper->redirector('index');
 	}
 
     public function indexAction(){

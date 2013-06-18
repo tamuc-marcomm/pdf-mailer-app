@@ -54,8 +54,9 @@ class Admin_CollegesController extends Zend_Controller_Action{
 			new Application_Model_College($data);
 		}else{
 			$table = new Application_Model_Table_Colleges();
-			$table->update($data,array('id = ?',$id));
+			$table->update($data, "id = $id");
 		}
+		$this->_helper->redirector('index');
 	}
 
     public function indexAction(){

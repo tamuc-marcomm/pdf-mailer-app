@@ -11,13 +11,13 @@ class Admin_ResourceController extends Zend_Controller_Action{
 		if($id == null){
 			throw new Zend_Controller_Action_Exception('A model id must be supplied when navigating to this action.',404);
 		}
-
 		try{
-			$table = new Application_Model_Table_Resource();
-			$table->delete(array("id = ?",$id));
+			$table = new Application_Model_Table_Resources();
+			$table->delete("id = $id");
 		}catch(Zend_Exception $e){
 			throw new Zend_Controller_Action_Exception('The model for that id could not be found.',404);
 		}
+		$this->_helper->redirector('index');
 	}
 
 	public function editAction(){
@@ -34,7 +34,7 @@ class Admin_ResourceController extends Zend_Controller_Action{
 				throw new Zend_Controller_Action_Exception('A model id must be supplied when navigating to this action.',404);
 			}
 
-			$This->view->id = $id;
+			$this->view->id = $id;
 			$this->view->resource = $table->fetchRow("id = $id");
 			if($this->view->resource == null){
 				throw new Zend_Controller_Action_Exception('The model for that id could not be found.',404);
@@ -49,18 +49,18 @@ class Admin_ResourceController extends Zend_Controller_Action{
 		$data = array(
 			'name' => $this->getRequest()->getParam('name'),
 			'parent' => $this->getRequest()->getParam('parent'),
-			'email_subject' => url_encode($this->getRequest()->getParam('email_subject')),
-			'email_body' => url_encode($this->getRequest()->getParam('email_body')),
+			'email_subject' => urlencode($this->getRequest()->getParam('email_subject')),
+			'email_body' => urlencode($this->getRequest()->getParam('email_body')),
 			'pdf_link' => $this->getRequest()->getParam('pdf_link')
 		);
-
 
 		if($id == 0){
 			new Application_Model_Resource($data);
 		}else{
 			$table = new Application_Model_Table_Resources();
-			$table->update($data,array('id = ?',$id));
+			$table->update($data, "id = $id");
 		}
+		$this->_helper->redirector->gotoRouteAndExit(array('controller' => 'resource', 'module' => 'admin', 'action' => 'index'), null, true);
 	}
 
     public function indexAction(){
