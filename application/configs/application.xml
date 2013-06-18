@@ -105,6 +105,27 @@
             <router>
                 <chainNameSeparator>/</chainNameSeparator>
                 <routes>
+                    <content>
+                        <route>/admin/content</route>
+                        <defaults>
+                            <module>admin</module>
+                            <controller>content</controller>
+                        </defaults>
+                        <chains>
+                            <edit>
+                                <route>/edit/:id/*</route>
+                                <defaults>
+                                    <action>edit</action>
+                                </defaults>
+                            </edit>
+                            <delete>
+                                <route>/delete/:id/*</route>
+                                <defaults>
+                                    <action>delete</action>
+                                </defaults>
+                            </delete>
+                        </chains>
+                    </content>
                     <rest>
                         <route>/rest</route>
                         <defaults>
@@ -123,6 +144,27 @@
                             </io>
                         </chains>
                     </rest>
+                    <users>
+                        <route>/admin/users</route>
+                        <defaults>
+                            <module>admin</module>
+                            <controller>users</controller>
+                        </defaults>
+                        <chains>
+                            <edit>
+                                <route>/edit/:id/*</route>
+                                <defaults>
+                                    <action>edit</action>
+                                </defaults>
+                            </edit>
+                            <delete>
+                                <route>/delete/:id/*</route>
+                                <defaults>
+                                    <action>delete</action>
+                                </defaults>
+                            </delete>
+                        </chains>
+                    </users>
                 </routes>
               </router>
         </resources>
