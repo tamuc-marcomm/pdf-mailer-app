@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS departments(
     PRIMARY KEY (id)
 )Engine = InnoDB;
 
-CREATE TABLE IF NOT EXISTS content(
+CREATE TABLE IF NOT EXISTS resources(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     parent INT UNSIGNED NOT NULL,
     name TEXT NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS content(
 
 /*[BEGIN] Apply Constraints*/
     ALTER TABLE departments ADD FOREIGN KEY (parent) REFERENCES colleges(id);
-    ALTER TABLE content ADD FOREIGN KEY (parent) REFERENCES departments(id);
+    ALTER TABLE resources ADD FOREIGN KEY (parent) REFERENCES departments(id);
 /*[END] Apply Constraints*/
 
 

@@ -105,13 +105,20 @@
             <router>
                 <chainNameSeparator>/</chainNameSeparator>
                 <routes>
-                    <content>
-                        <route>/admin/content</route>
+                    <colleges>
+                        <route>/admin/colleges</route>
                         <defaults>
                             <module>admin</module>
-                            <controller>content</controller>
+                            <controller>colleges</controller>
                         </defaults>
                         <chains>
+                            <add>
+                                <route>/add/*</route>
+                                <defaults>
+                                    <action>edit</action>
+                                    <new>true</new>
+                                </defaults>
+                            </add>
                             <edit>
                                 <route>/edit/:id/*</route>
                                 <defaults>
@@ -125,7 +132,64 @@
                                 </defaults>
                             </delete>
                         </chains>
-                    </content>
+                    </colleges>
+                    <departments>
+                        <route>/admin/departments</route>
+                        <defaults>
+                            <module>admin</module>
+                            <controller>departments</controller>
+                        </defaults>
+                        <chains>
+                            <add>
+                                <route>/add/*</route>
+                                <defaults>
+                                    <action>edit</action>
+                                    <new>true</new>
+                                </defaults>
+                            </add>
+                            <edit>
+                                <route>/edit/:id/*</route>
+                                <defaults>
+                                    <action>edit</action>
+                                </defaults>
+                            </edit>
+                            <delete>
+                                <route>/delete/:id/*</route>
+                                <defaults>
+                                    <action>delete</action>
+                                    <id />
+                                </defaults>
+                            </delete>
+                        </chains>
+                    </departments>
+                    <resource>
+                        <route>/admin/resource</route>
+                        <defaults>
+                            <module>admin</module>
+                            <controller>resource</controller>
+                        </defaults>
+                        <chains>
+                            <add>
+                                <route>/add/*</route>
+                                <defaults>
+                                    <action>edit</action>
+                                    <new>true</new>
+                                </defaults>
+                            </add>
+                            <edit>
+                                <route>/edit/:id/*</route>
+                                <defaults>
+                                    <action>edit</action>
+                                </defaults>
+                            </edit>
+                            <delete>
+                                <route>/delete/:id/*</route>
+                                <defaults>
+                                    <action>delete</action>
+                                </defaults>
+                            </delete>
+                        </chains>
+                    </resource>
                     <rest>
                         <route>/rest</route>
                         <defaults>
