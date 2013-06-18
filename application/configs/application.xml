@@ -21,6 +21,9 @@
             <display_errors>0</display_errors>
             <display_startup_errors>0</display_startup_errors>
         </phpSettings>
+        <pluginPaths>
+            <Application_Resource><zf:const zf:name="APPLICATION_PATH" />/resource</Application_Resource>
+        </pluginPaths>
         <resources>
             <db>
                 <adapter>PDO_MYSQL</adapter>
@@ -47,18 +50,77 @@
             <layout>
                 <layoutPath><zf:const zf:name="APPLICATION_PATH" />/layouts/scripts/</layoutPath>
             </layout>
+            <rest>
+                <get>
+                    <colleges>
+                        <tableClass>Application_Model_Table_Colleges</tableClass>
+                        <filters>
+                            <id>
+                                <constraint>[1-9][0-9]*</constraint>
+                                <description>Any number larger than 0.</description>
+                                <filter>id = ?</filter>
+                            </id>
+                            <name>
+                                <description>Any number larger than 0.</description>
+                                <filter>name LIKE CONCAT('%',?,'%')</filter>
+                            </name>
+                        </filters>
+                    </colleges>
+                    <departments>
+                        <tableClass>Application_Model_Table_Departments</tableClass>
+                        <filters>
+                            <id>
+                                <constraint>[1-9][0-9]*</constraint>
+                                <description>Any number larger than 0.</description>
+                                <filter>id = ?</filter>
+                            </id>
+                            <name>
+                                <description>Any number larger than 0.</description>
+                                <filter>name LIKE CONCAT('%',?,'%')</filter>
+                            </name>
+                        </filters>
+                    </departments>
+                    <users>
+                        <tableClass>Application_Model_Table_Users</tableClass>
+                        <filters>
+                            <id>
+                                <constraint>[1-9][0-9]*</constraint>
+                                <description>Any number larger than 0.</description>
+                                <filter>id = ?</filter>
+                            </id>
+                        </filters>
+                        <requiresAuth>true</requiresAuth>
+                    </users>
+                    <departmentsbycollege>
+                        <type>relational</type>
+
+                        <relationship>1..*</relationship>
+                        <primaryModel>colleges</primaryModel>
+                        <secondaryModel>departments</secondaryModel>
+                        <glue>id</glue>
+                    </departmentsbycollege>
+                </get>
+            </rest>
             <router>
                 <chainNameSeparator>/</chainNameSeparator>
                 <routes>
                     <rest>
-                        <route>/rest/:method/:model</route>
+                        <route>/rest</route>
                         <defaults>
                             <module>rest</module>
-                            <controller>get</controller>
-                            <action>get</action>
-                            <method />
-                            <model />
+                            <controller>rest</controller>
                         </defaults>
+                        <chains>
+                            <docs>
+                                <route>/docs/*</route>
+                            </docs>
+                            <manip>
+                                <route>/:action/:model/*</route>
+                                <defaults>
+                                    <model />
+                                </defaults>
+                            </manip>
+                        </chains>
                     </rest>
                 </routes>
               </router>

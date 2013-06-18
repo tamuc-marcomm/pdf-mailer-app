@@ -1,6 +1,6 @@
 <?php
 
-class Rest_GetController extends Zend_Controller_Action{
+class Rest_RestController extends Zend_Controller_Action{
     protected $_models = array(
         'colleges' => array(
             'table_class' => 'Application_Model_Table_Colleges',
@@ -29,50 +29,40 @@ class Rest_GetController extends Zend_Controller_Action{
     );
 
     public function getAction(){
-        $data = array();
-        $requested_model = $this->getRequest()->getParam('model');
+        $failure = array('status' => 'failure','message' => null);
         $table;
 
 
-        /*[BEGIN] Request Error Checking*/
-        if(empty($requested_model)){
-            $this->_helper->json(array('status' => 'failure','message' => 'You must specify a model to retreive for this call to succeed.'));
+        /*[BEGIN] Request Error Checking and Initialization*/
+        $model = $this->getRequest()->getParam('model');
+        if(empty($model)){
+            $failure['message'] = 'You must specify a model to retreive for this call to succeed.';
+            $this->_helper->json($failure);
         }
 
-        if(!isset($this->_models[$requested_model])){
-            $this->_helper->json(array('status' => 'failure','message' => "The requested model '$requested_model' is not a valid model.  Please see '".$this->view->url(array(),'rest/docs',true)."' for valid requests and additional documentation."));
+        
+        if(!$this->_helper->rest->modelExists($model)){
+            $failure['message'] = "The requested model '$model' is not a valid model.  Please see '{$this->view->url(array(),'rest/docs',true)}' for valid requests and additional documentation.";
+            $this->_helper->json($failure);
         }
 
-        $model_information = $this->_models[$requested_model];
-        $user = Zend_Registry::get('current_user');
-        if(isset($model_information['auth']) && $model_information['auth'] && empty($user)){
-            $this->_helper->json(array('status' => 'failure','message' => 'You must be logged in for this call to succeed.'));
+        if($this->_helper->rest->requiresAuth($model) && !Zend_Registry::isRegistered('current_user')){
+            $failure['message'] = 'You must be logged in for this call to succeed.';
+            $this->_helper->json($failure);   
         }
         /*[END] Request Error Checking*/
 
-        $table = new $model_information['table_class']();
-        $query = $table->select();
-        foreach($model_information['parameters'] as $parameter_name => $parameter){
-            if($this->getRequest()->getParam($parameter_name) !== null){
-                $parameter_value = $this->getRequest()->getParam($parameter_name);
-                
-
-                $herp = preg_match('/'.$parameter['constraint_matcher'].'/',$parameter_value);
-                var_dump($herp);exit;
-
-
-
-                if(preg_match('/'.$parameter['constraint_matcher'].'/',$parameter_value)){
-                    $query->where($parameter['query'],$parameter_value);
-                }else{
-                    $this->_helper->json(array('status' => 'failure','message' => "Parameter '$parameter_name' must meet the following criterea for this call to succeed:  {$parameter['constraint_description']}"));
-                }
-            }else{
-                if(isset($parameter['required']) && $parameter['required']){
-                    $this->_helper->json(array('status' => 'failure','message' => "Parameter '$parameter_name' must be given for this call to succeed."));
-                }
-            }
+        try{
+            $select = $this->_helper->rest->getSelect();
+            $this->_helper->rest->applySelect($select);exit($select->__toString());
+        }catch(Zend_Exception $e){
+            $failure['message'] = $e->getMessage();
+            $this->_helper->json($failure);
         }
+
+        $select->order('id','asc');
+
+        $this->_helper->json(array('status' => 'success','data' => $select->query()->fetchAll()));
     }
 
     /*public function collegesAction(){
