@@ -11,7 +11,7 @@ class Application_Model_Table_Colleges extends Zend_Db_Table_Abstract{
         $rowset = $table->fetchAll();
         $colleges = array();
         foreach($rowset as $row){
-            $colleges[] = new Application_Model_Colleges($row);
+            $colleges[] = new Application_Model_College($row);
         }
         return $colleges;
 	}
