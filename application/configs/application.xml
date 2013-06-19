@@ -3,7 +3,6 @@
     <production>
         <appnamespace>Application</appnamespace>
         <autoloaderNamespaces>
-            <application>Application_</application>
             <strixa>Strixa_</strixa>
         </autoloaderNamespaces>
         <bootstrap>
@@ -23,28 +22,29 @@
         </phpSettings>
         <pluginPaths>
             <Application_Resource><zf:const zf:name="APPLICATION_PATH" />/resource</Application_Resource>
+            <Application_Plugins><zf:const zf:name="APPLICATION_PATH" />/plugins</Application_Plugins>
         </pluginPaths>
         <resources>
             <db>
                 <adapter>PDO_MYSQL</adapter>
                 <params>
                     <host>localhost</host>
-                    <username>root</username>
-                    <password></password>
-                    <dbname>workthing</dbname>
+                    <username>mac</username>
+                    <password>BQS5ba2BtE7APzyF</password>
+                    <dbname>mac</dbname>
                 </params>
             </db>
             <frontController>
-            <actionhelperpaths>
-                <Application_Controllers_Helpers><zf:const zf:name="APPLICATION_PATH" />/controllers/helpers</Application_Controllers_Helpers>
-            </actionhelperpaths>
+	            <actionhelperpaths>
+	                <Application_Controllers_Helpers><zf:const zf:name="APPLICATION_PATH" />/controllers/helpers</Application_Controllers_Helpers>
+	            </actionhelperpaths>
                 <moduleDirectory><zf:const zf:name="APPLICATION_PATH" />/modules/</moduleDirectory>
                 <params>
                     <displayExceptions>0</displayExceptions>
                 </params>
                 <plugins>
-                    <UserSetter>Application_Plugins_UserSetter</UserSetter>
-                    <TrafficDirector>Application_Plugins_TrafficDirector</TrafficDirector>
+                    <UserSetter>Application_Plugin_UserSetter</UserSetter>
+                    <TrafficDirector>Application_Plugin_TrafficDirector</TrafficDirector>
                 </plugins>
             </frontController>
             <layout>
@@ -229,6 +229,22 @@
                             </delete>
                         </chains>
                     </users>
+                	<login>
+                		<route>/login</route>
+                		<defaults>
+                			<module>default</module>
+                			<controller>login</controller>
+                		</defaults>
+                		<chains>
+                			<do>
+                				<route>/do/:for/:ru/*</route>
+                				<defaults>
+                					<for>default</for>
+                					<action>dologin</action>
+                				</defaults>
+                			</do>
+                		</chains>
+                	</login>
                 </routes>
               </router>
         </resources>

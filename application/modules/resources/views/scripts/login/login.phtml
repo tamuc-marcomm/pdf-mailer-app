@@ -5,11 +5,12 @@
 <div class="login-banner">
     <h1>Admissions Resources</h1>
 </div>
-<form action="/user/dologin" method="post">
+<form action="<?php echo $this->url(array('for' => $this->module,'ru' => urlencode($this->ru)),'login/do',false); ?>" method="post">
         <label for="username">Username</label>
         <input type="text" name="username" />
         <br>
         <label for="password">Password</label>
         <input type="password" name="password" />
+        <button type="submit">Log In</button>
 </form>
 </div>

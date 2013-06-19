@@ -1,5 +1,6 @@
 <?php
-class Application_Plugins_UserSetter extends Zend_Controller_Plugin_Abstract{
+
+class Application_Plugin_UserSetter extends Zend_Controller_Plugin_Abstract{
     public function routeStartup(Zend_Controller_Request_Abstract $request){
         $authenticator = Zend_Auth::getInstance();
         

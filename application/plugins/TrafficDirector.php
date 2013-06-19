@@ -1,21 +1,22 @@
 <?php
 
-class Application_Plugins_TrafficDirector extends Zend_Controller_Plugin_Abstract{
+class Application_Plugin_TrafficDirector extends Zend_Controller_Plugin_Abstract{
     public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request){
-        //$this->_redirectLogin($request);
+        $this->_redirectLogin($request);
     }
 
     protected function _redirectLogin(Zend_Controller_Request_Abstract &$request){
         $action = $request->getActionName();    
         $controller = $request->getControllerName();
         $module = $request->getModuleName();
-        $requires_login = false;
         
         
         $user = Zend_Registry::get('current_user');
         if($user == null){
-            if(
-                $controller == 'user'
+            if($module == 'default'){
+            	return true;
+            }else if(
+                $controller == 'login'
                 &&
                 ($action == 'login' || $action == 'dologin')
             ){
@@ -30,8 +31,8 @@ class Application_Plugins_TrafficDirector extends Zend_Controller_Plugin_Abstrac
         }
         
         $request->setParam('ru',$request->getRequestUri());
-        $request->setModuleName('default');
-        $request->setControllerName('user');
+		$request->setModuleName('default');
+        $request->setControllerName('login');
         $request->setActionName('login');
         
         return true;

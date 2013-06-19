@@ -8,21 +8,21 @@
 				<thead>
 					<th>ID</th>
 					<th>Name</th>
-					<th width="20%">Actions</th>
+					<th style="white-space:nowrap;width:1px;">Actions</th>
 				</thead>
 				<tbody>
 					<?php foreach($this->colleges as $college) :?>
 					<tr>
 						<td><?php echo $college->id; ?></td>
 						<td><?php echo $college->name; ?> </td>
-						<td>
+						<td style="text-align:center;white-space:nowrap;width:1px;">
 							<a href="<?php echo $this->baseUrl('/admin/colleges/edit/' . $college->id); ?>" class="btn btn-primary">Edit</a>
 						</td>
 					</tr>
-
 					<?php endforeach; ?>
 				</tbody>
 			</table>
+			<div style="text-align:right;"><a class="btn btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'colleges','action' => 'add'),null,true); ?>">New</a></div>
 		</div>
 	</div>
 </div>
