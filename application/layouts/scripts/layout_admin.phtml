@@ -1,15 +1,14 @@
+<!DOCTYPE html>
 <?php
 $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
 $this->headTitle('Work Thing');
 ?>
-
-<?php echo $this->doctype();?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <?php echo $this->headMeta();?>
     <?php echo $this->headTitle();?>
     <link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
-
+	
     <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/admin/bootstrap-cerulean.css')); ?>
     <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/admin/charisma-app.css')); ?>
     <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/admin/chosen.css'));?>
@@ -30,7 +29,9 @@ $this->headTitle('Work Thing');
     <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/admin/uploadify.css')) ?>
     <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/admin/jquery.dataTables.css')); ?>
     <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/admin/demo_table_jui.css')); ?>
+    
     <?php $this->headScript()->appendFile($this->baseUrl('/js/admin/jquery.js')); ?>
+
 	<?php echo $this->headLink(); ?>
 	<?php echo $this->headScript(); ?>
 </head>
@@ -47,12 +48,12 @@ $this->headTitle('Work Thing');
             <div class="well nav-collapse sidebar-nav">
                 <ul class="nav nav-tabs nav-stacked main-menu">
                     <li class="nav-header hidden-tablet">Main</li>
-                    <li><a class="ajax-link" href="<?php echo $this->baseUrl('/admin/users'); ?>">Users</a></li>
-                    <li><a class="ajax-link" href="#">Logout</a></li>
-                    <li class="nav-header hidden-tablet">Resources</li>
-                    <li><a class="ajax-link" href="<?php echo $this->baseUrl('/admin/resource'); ?>">Resource</a></li>
-                    <li><a class="ajax-link" href="<?php echo $this->baseUrl('/admin/departments'); ?>">Departments</a></li>
-                    <li><a class="ajax-link" href="<?php echo $this->baseUrl('/admin/colleges'); ?>">Colleges</a></li>
+                    <li><a  href="<?php echo $this->baseUrl('/admin/users'); ?>"><i class="icon-user"> </i><span class="hidden-tablet">Users</span></a></li>
+                    <li><a class="ajax-link" href="#"><i class="icon-frown"> </i><span class="hidden-tablet">Logout</span></a></li>
+                    <li class="nav-header hidden-tablet"><span class="hidden-tablet">Resources</span></li>
+                    <li><a class="ajax-link" href="<?php echo $this->baseUrl('/admin/resource'); ?>"><i class="icon-folder-close-alt"> </i><span class="hidden-tablet">Resource</span></a></li>
+                    <li><a class="ajax-link" href="<?php echo $this->baseUrl('/admin/departments'); ?>"><i class="icon-folder-close"> </i><span class="hidden-tablet">Departments</span></a></li>
+                    <li><a class="ajax-link" href="<?php echo $this->baseUrl('/admin/colleges'); ?>"><i class="icon-group"> </i><span class="hidden-tablet">Colleges</span></a></li>
                 </ul>
             </div>
         </div>

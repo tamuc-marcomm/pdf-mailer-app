@@ -1,0 +1,34 @@
+<form action="<?php echo $this->baseUrl('/admin/users/doedit'); ?>" method="post">
+	<div class="form-elements">
+		<label for="username">Username</label>
+		<div class="form-controls">
+			<input type="text" name="username" value="<?php echo $this->user->username; ?>"/>
+		</div>
+	</div>
+	<div class="form-elements">
+		<label for="first_name">First Name</label>
+		<div class="form-controls">
+			<input type="text" name="first_name" value="<?php echo $this->user->first_name; ?>"/>
+		</div>
+	</div>
+	<div class="form-elements">
+		<label for="last_name">Last Name</label>
+		<div class="form-controls">
+			<input type="text" name="last_name" value="<?php echo $this->user->last_name; ?>">
+		</div>
+	</div>
+	<input type="hidden" value="<?php echo $this->id;?>" name="id"/>
+	<div class="form-elements">
+		<label for="is_admin">Is Admin?</label>
+		<div class="form-controls">
+			<select name="is_admin">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</select>
+		</div>
+	<div class="form-elements">
+		<div class="form-controls">
+			<input type="submit" value="Submit">
+		</div>
+	</div>
+</form>
