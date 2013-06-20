@@ -1,0 +1,71 @@
+<?php
+	$this->layout()->disableLayout();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Le styles -->
+    <link href="http://twitter.github.io/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+    html{
+    	height: 100%;
+    }
+    body{
+    	display: table;
+    	min-height: 100%;
+    	table-layout: fixed;
+    	width: 100%;
+    }
+    body:before{
+    	content: '';
+    	display: table-row;
+    }
+    body:after{
+    	content: '';
+    	display: table-row;
+    }
+    
+    .row{
+    	display: table-row;
+    	height: 1px;
+    }
+    
+    #main{    	
+    	float: none !important;
+    	margin: 100px auto;
+    }
+    
+    legend{
+    	text-align: center;
+    }
+    
+    #main input[type='text'],#main input[type='password']{
+    	box-sizing: border-box;
+    	-moz-box-sizing: border-box;
+    	-o-box-sizing: border-box;
+    	-webkit-box-sizing: border-box;
+    	text-align: center;
+    	padding: 1em 0.5em;
+    	width: 100%;
+    }
+    </style>
+</head>
+<body>
+	<div class="row">
+		<div id="main" class="span4 offset4">
+		  <div class="well">
+		    <legend>MarComm Resources</legend>
+		    <form method="POST" action="<?php echo $this->url(array('for' => $this->module,'ru' => urlencode($this->ru)),'login/do',false); ?>" accept-charset="UTF-8">
+		        <input class="span3" placeholder="Username" type="text" name="username">
+		        <input class="span3" placeholder="Password" type="password" name="password"> 
+		        <label class="checkbox">
+		            <input type="checkbox" name="remember" value="1"> Remember Me
+		        </label>
+		        <center><button class="btn-info btn" type="submit">Login</button></center>      
+		    </form>    
+		  </div>
+		</div>
+	</div>
+</body>
+</html>

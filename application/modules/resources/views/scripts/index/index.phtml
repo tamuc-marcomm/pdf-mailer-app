@@ -1,67 +1,185 @@
-<div id="content-first">
-    <div class="header">
-        Admissions Resource
-    </div>
-    <ul>
-        <?php foreach($this->colleges as $college) : ?>
-        <li class="clicksy fc-text" id="<?php echo $college->id; ?>">
-                <?php echo $college->name; ?>
-                <!--span class="ficons"-->
-                <!--0i class="icon-angle-right"></i>
-            <!--span-->
-        </li>
-        <?php endforeach;?>
-    </ul>
-</div>
-
-<div id="content-second" style="background-color: purple !important;">
-    <div class="header" id="header-second-page">
-        <i class="icon-angle-left"></i>
-    </div>
-    <ul id="second-list">
-    </ul>
-</div>
+<ul class="menu college_list">
+	<li class="header">Admissions Resource</li>
+	
+    <?php foreach($this->colleges as $college) : ?>
+    <li class="item" data-mid="<?php echo $college->id; ?>">
+        <?php echo $college->name; ?>
+    </li>
+    <?php endforeach;?>
+</ul>
+<ul class="menu department_list">
+	<li class="header">Return to Colleges</li>
+</ul>
+<ul class="menu resource_list">
+	<li class="header">Return to Departments</li>
+</ul>
 
 <script>
-$('.clicksy').click(function() {
-        $.ajax({
-            type: "GET",
-            url: "<?php echo $this->url(array(), 'restdepartmentsbycollege', true); ?>/" + $(this).attr('id'),
-            success: function(data) {
-                $.each(data.data, function(val) {
-                    var list_element = $('<li>').addClass('sc-text').text(this.name);
-                    var span_element = $('<span>').attr('id', 'sicons');
-                    span_element.append($('<a>').attr('href', "mailto:?Subject=" + encodeURIComponent(this.email_subject) + "&Body=" + encodeURIComponent(this.email_body)).addClass('mail-link'));
-                    list_element.append(span_element);
-                    span_element.append($('<a>').attr('href', this.pdf_link).addClass('pdf-link'));
-                    $('#second-list').append(list_element);
-                });
-            }
-        });
-    $('#content-first').animate({
-        right: '100%'
-    }, 500, function() {
-        $(this).toggle();
-    });
-    $('#content-second').toggle().animate({
-        left: '0%'
-    }, 500, function() {
-        
-    });
-});
-
-$('#header-second-page').click(function() {
-    $('#content-first').toggle().animate({
-        right: '0%'
-    }, 500, function() {
-    });
-    $('#content-second').animate({
-        left: '100%'
-    }, 500, function() {
-        $(this).toggle();
-        $('#second-list').empty();
-    });
-});
 
 
+
+function loadDepartments(){
+	$.get(
+        "<?php echo $this->url(array('model' => 'departmentsbycollege'), 'rest/io/get', true); ?>",
+        {
+        	id: $(this).data('mid') 
+        },
+        function(response){       	
+        	if(response.data.length == 0){
+        		$('<li>')
+					.addClass('item')
+					.addClass('no_department_indicator')
+					.text("No Resources Available")
+					.appendTo($('.menu.department_list'));
+			}else{
+				var new_items = $('<div>');
+				
+				
+	        	$.each(response.data, function(val){
+					$('<li>')
+						.data('mid',this.id)
+						.addClass('item')
+						.text(this.name)
+						.click(loadResources)
+						.appendTo(new_items);
+					
+					
+			    });
+			    
+			    new_items
+					.children().appendTo($('.menu.department_list'));
+			}
+		}
+    );
+    
+    scrollToDepartmentList();
+}
+
+function unloadDepartments(){	
+	scrollToCollegeList(function(){
+		$('.menu.department_list .item')
+			.remove();
+	});
+}
+
+function loadResources(){
+	$.get(
+        "<?php echo $this->url(array('model' => 'resourcesbydepartment'), 'rest/io/get', true); ?>",
+        {
+        	id: $(this).data('mid') 
+        },
+        function(response){        	
+        	if(response.data.length == 0){
+        		$('<li>')
+					.addClass('item')
+					.addClass('no_resource_indicator')
+					.text("No Resources Available")
+					.appendTo($('.menu.resource_list'));
+        	}else{
+        		var new_items = $('<div>');
+        		
+        		
+	        	$.each(response.data, function(val){
+					$('<li>')
+						.addClass('item')
+						.text(this.name)
+						.appendTo(new_items);
+			    });
+			    
+			    new_items
+					.children().appendTo($('.menu.resource_list'))
+			}
+		}
+    );
+	
+	scrollToResourceList();
+}
+
+function unloadResources(){
+	scrollToDepartmentList(function(){
+		$('.menu.resource_list .item')
+			.remove();
+	});
+}
+
+function scrollToCollegeList(on_scroll_complete){    
+    var college_menu = $('.menu.college_list');
+	var visible_menu = $('.menu:visible');
+	
+	
+	college_menu.toggle();
+	
+	//Is the visible menu logically to the right, or left of the departments menu?
+	var new_left = visible_menu.offset().left > college_menu.offset().left ? '100%' : '-100%';
+	
+	
+	visible_menu
+		.animate({ left: new_left }, 500, function(){
+			$(this).toggle();
+			
+			if(on_scroll_complete instanceof Function){
+				on_scroll_complete.call(document);
+			}
+		});
+	
+	college_menu
+		.animate({ left: '0%' }, 500);
+}
+
+function scrollToDepartmentList(on_scroll_complete){
+	var department_menu = $('.menu.department_list');
+	var visible_menu = $('.menu:visible');
+	
+	
+	department_menu.toggle();
+	
+	//Is the visible menu logically to the right, or left of the departments menu?
+	var new_left = visible_menu.offset().left > department_menu.offset().left ? '100%' : '-100%';
+	
+	visible_menu
+		.animate({ left: new_left }, 500, function(){
+			$(this).toggle();
+			
+			if(on_scroll_complete instanceof Function){
+				on_scroll_complete.call(document);
+			}
+		});
+	
+	department_menu
+		.animate({ left: '0%' }, 500);
+}
+
+function scrollToResourceList(on_scroll_complete){
+	var resource_menu = $('.menu.resource_list');
+	var visible_menu = $('.menu:visible');
+	
+	
+	resource_menu.toggle();
+	
+	//Is the visible menu logically to the right, or left of the departments menu?
+	var new_left = visible_menu.offset().left > resource_menu.offset().left ? '100%' : '-100%';
+	
+	visible_menu
+		.animate({ left: new_left }, 500, function(){
+			$(this).toggle();
+			
+			if(on_scroll_complete instanceof Function){
+				on_scroll_complete.call(document);
+			}
+		});
+	
+	resource_menu
+		.animate({ left: '0%' }, 500);
+}
+
+
+$('.menu.college_list .item')
+	.click(loadDepartments);
+		
+$('.menu.department_list .header')
+	.click(unloadDepartments);
+	
+$('.menu.resource_list .header')
+	.click(unloadResources);
+	
 </script>

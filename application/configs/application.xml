@@ -80,6 +80,20 @@
                             </name>
                         </filters>
                     </departments>
+                    <resources>
+                        <tableClass>Application_Model_Table_Resources</tableClass>
+                        <filters>
+                            <id>
+                                <constraint>[1-9][0-9]*</constraint>
+                                <description>Any number larger than 0.</description>
+                                <filter>id = ?</filter>
+                            </id>
+                            <name>
+                                <description>Any number larger than 0.</description>
+                                <filter>name LIKE CONCAT('%',?,'%')</filter>
+                            </name>
+                        </filters>
+                    </resources>
                     <users>
                         <tableClass>Application_Model_Table_Users</tableClass>
                         <filters>
@@ -91,6 +105,7 @@
                         </filters>
                         <requiresAuth>true</requiresAuth>
                     </users>
+                    
                     <departmentsbycollege>
                         <type>relational</type>
 
@@ -100,6 +115,15 @@
                         <leftColumn>id</leftColumn>
                         <rightColumn>parent</rightColumn>
                     </departmentsbycollege>
+                    <resourcesbydepartment>
+                        <type>relational</type>
+
+                        <relationship>1..*</relationship>
+                        <leftModel>departments</leftModel>
+                        <rightModel>resources</rightModel>
+                        <leftColumn>id</leftColumn>
+                        <rightColumn>parent</rightColumn>
+                    </resourcesbydepartment>
                 </get>
             </rest>
             <router>
@@ -201,10 +225,14 @@
                                 <route>/docs/*</route>
                             </docs>
                             <io>
-                                <route>/:action/:model/*</route>
-                                <defaults>
-                                    <model />
-                                </defaults>
+                                <chains>
+                                	<get>
+                                		<route>/get/:model/*</route>
+                                		<defaults>
+                                			<action>get</action>
+                                		</defaults>
+                                	</get>
+                                </chains>
                             </io>
                         </chains>
                     </rest>
