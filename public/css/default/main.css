@@ -145,13 +145,16 @@ i {
 }
 
 body{
-	min-height: 100%;
+	height: 100%;
+	position: fixed;
+	width: 100%;
 }
 
 .menu{
 	display: block;
-	min-height: 100%;
+	height: 100%;
 	position: absolute;
+	overflow-y: auto;
 	width: 100%;
 }
 
@@ -160,7 +163,6 @@ body{
 }
 
 .menu.department_list,.menu.resource_list{
-	display: none;
 	left: 100%;
 }
 

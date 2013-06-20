@@ -15,16 +15,26 @@
 </ul>
 
 <script>
-
+var is_animating = false;
+var is_loading = false;
 
 
 function loadDepartments(){
+	if(is_loading){
+		return;
+	}
+	is_loading = true;
+
 	$.get(
         "<?php echo $this->url(array('model' => 'departmentsbycollege'), 'rest/io/get', true); ?>",
         {
         	id: $(this).data('mid') 
         },
-        function(response){       	
+        function(response){
+        	if(!is_loading){
+        		return;
+        	}
+
         	if(response.data.length == 0){
         		$('<li>')
 					.addClass('item')
@@ -42,33 +52,44 @@ function loadDepartments(){
 						.text(this.name)
 						.click(loadResources)
 						.appendTo(new_items);
-					
-					
 			    });
 			    
 			    new_items
 					.children().appendTo($('.menu.department_list'));
 			}
+
+			is_loading = false;
 		}
     );
     
     scrollToDepartmentList();
 }
 
-function unloadDepartments(){	
+function unloadDepartments(){
 	scrollToCollegeList(function(){
+		is_loading = false;
+		
 		$('.menu.department_list .item')
 			.remove();
 	});
 }
 
 function loadResources(){
+	if(is_loading){
+		return;
+	}
+	is_loading = true;
+
 	$.get(
         "<?php echo $this->url(array('model' => 'resourcesbydepartment'), 'rest/io/get', true); ?>",
         {
         	id: $(this).data('mid') 
         },
         function(response){        	
+        	if(!is_loading){
+        		return;
+        	}
+
         	if(response.data.length == 0){
         		$('<li>')
 					.addClass('item')
@@ -89,6 +110,8 @@ function loadResources(){
 			    new_items
 					.children().appendTo($('.menu.resource_list'))
 			}
+
+			is_loading = false;
 		}
     );
 	
@@ -96,27 +119,38 @@ function loadResources(){
 }
 
 function unloadResources(){
+	if(is_animating){
+		return;
+	}
+	is_animating = true;
+
 	scrollToDepartmentList(function(){
+		is_loading = false;
+		
 		$('.menu.resource_list .item')
 			.remove();
 	});
 }
 
 function scrollToCollegeList(on_scroll_complete){    
-    var college_menu = $('.menu.college_list');
-	var visible_menu = $('.menu:visible');
+    if(is_animating){
+		$('.menu').finish();
+	}else{
+		is_animating = true;
+	}
+
+	var college_menu = $('.menu.college_list');
+	var visible_menu = $('.menu').filter(function(){if($(this).offset().left == 0){return true}});
 	
-	
-	college_menu.toggle();
-	
+		
 	//Is the visible menu logically to the right, or left of the departments menu?
 	var new_left = visible_menu.offset().left > college_menu.offset().left ? '100%' : '-100%';
 	
 	
 	visible_menu
-		.animate({ left: new_left }, 500, function(){
-			$(this).toggle();
-			
+		.animate({ left: new_left }, 500, function(){	
+			is_animating = false;
+
 			if(on_scroll_complete instanceof Function){
 				on_scroll_complete.call(document);
 			}
@@ -127,19 +161,24 @@ function scrollToCollegeList(on_scroll_complete){
 }
 
 function scrollToDepartmentList(on_scroll_complete){
+	if(is_animating){
+		$('.menu').finish();
+	}else{
+		is_animating = true;
+	}
+
 	var department_menu = $('.menu.department_list');
-	var visible_menu = $('.menu:visible');
+	var visible_menu = $('.menu').filter(function(){if($(this).offset().left == 0){return true}});
 	
-	
-	department_menu.toggle();
-	
+		
 	//Is the visible menu logically to the right, or left of the departments menu?
 	var new_left = visible_menu.offset().left > department_menu.offset().left ? '100%' : '-100%';
 	
+
 	visible_menu
-		.animate({ left: new_left }, 500, function(){
-			$(this).toggle();
-			
+		.animate({ left: new_left }, 500, function(){	
+			is_animating = false;
+
 			if(on_scroll_complete instanceof Function){
 				on_scroll_complete.call(document);
 			}
@@ -150,19 +189,24 @@ function scrollToDepartmentList(on_scroll_complete){
 }
 
 function scrollToResourceList(on_scroll_complete){
+	if(is_animating){
+		$('.menu').finish();
+	}else{
+		is_animating = true;
+	}
+
 	var resource_menu = $('.menu.resource_list');
-	var visible_menu = $('.menu:visible');
+	var visible_menu = $('.menu').filter(function(){if($(this).offset().left == 0){return true}});
 	
-	
-	resource_menu.toggle();
-	
+		
 	//Is the visible menu logically to the right, or left of the departments menu?
 	var new_left = visible_menu.offset().left > resource_menu.offset().left ? '100%' : '-100%';
 	
+
 	visible_menu
-		.animate({ left: new_left }, 500, function(){
-			$(this).toggle();
-			
+		.animate({ left: new_left }, 500, function(){	
+			is_animating = false;
+
 			if(on_scroll_complete instanceof Function){
 				on_scroll_complete.call(document);
 			}

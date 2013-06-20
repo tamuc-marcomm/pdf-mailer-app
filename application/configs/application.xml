@@ -290,4 +290,17 @@
             </frontController>
         </resources>
     </development>
+    <nrlocal zf:extends="development">
+        <resources>
+            <db>
+                <adapter>PDO_MYSQL</adapter>
+                <params>
+                    <host>localhost</host>
+                    <username>root</username>
+                    <password></password>
+                    <dbname>workthing</dbname>
+                </params>
+            </db>
+        </resources>
+    </nrlocal>
 </application>
