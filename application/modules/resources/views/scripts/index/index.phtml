@@ -1,18 +1,20 @@
-<ul class="menu college_list">
-	<li class="header">Admissions Resource</li>
-	
-    <?php foreach($this->colleges as $college) : ?>
-    <li class="item" data-mid="<?php echo $college->id; ?>">
-        <?php echo $college->name; ?>
-    </li>
-    <?php endforeach;?>
-</ul>
-<ul class="menu department_list">
-	<li class="header">Return to Colleges</li>
-</ul>
-<ul class="menu resource_list">
-	<li class="header">Return to Departments</li>
-</ul>
+<div class="no_scroll">
+	<ul class="menu college_list">
+		<li class="header">Admissions Resource</li>
+		
+	    <?php foreach($this->colleges as $college) : ?>
+	    <li class="item" data-mid="<?php echo $college->id; ?>">
+	        <?php echo $college->name; ?>
+	    </li>
+	    <?php endforeach;?>
+	</ul>
+	<ul class="menu department_list">
+		<li class="header">Return to Colleges</li>
+	</ul>
+	<ul class="menu resource_list">
+		<li class="header">Return to Departments</li>
+	</ul>
+</div>
 
 <script>
 var is_animating = false;
@@ -103,7 +105,23 @@ function loadResources(){
 	        	$.each(response.data, function(val){
 					$('<li>')
 						.addClass('item')
-						.text(this.name)
+						.append(
+							$('<span>')
+								.addClass('cell')
+								.text(this.name)
+						)
+						.append(
+							$('<a>')
+								.addClass('cell')
+								.addClass('email')
+								.attr('href','mailto:?subject=' + encodeURIComponent(this.email_subject) + '&body=' + encodeURIComponent(this.email_body))
+						)
+						.append(
+							$('<a>')
+								.addClass('cell')
+								.addClass('pdf')
+								.attr('href',this.pdf_link)
+						)
 						.appendTo(new_items);
 			    });
 			    

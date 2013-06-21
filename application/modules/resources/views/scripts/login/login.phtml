@@ -1,16 +1,19 @@
-<div class="wrapper">
-<div class="image-holder">
-    <img src="<?php echo $this->baseUrl('/images/watermark.png');?>" class="login-image"/>
-</div>
-<div class="login-banner">
-    <h1>Admissions Resources</h1>
-</div>
-<form action="<?php echo $this->url(array('for' => $this->module,'ru' => urlencode($this->ru)),'login/do',false); ?>" method="post">
-        <label for="username">Username</label>
-        <input type="text" name="username" />
-        <br>
-        <label for="password">Password</label>
-        <input type="password" name="password" />
-        <button type="submit">Log In</button>
-</form>
+<?php $this->headMeta()->appendName('viewport','width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'); ?>
+<?php $this->headScript()->appendFile($this->baseUrl('/js/admin/jquery-1.7.2.min.js')); ?>
+<?php $this->headScript()->appendFile($this->baseUrl('/js/admin/jquery-ui-1.8.21.custom.min.js')); ?>
+
+<div class="vcenterer">
+	<div class="vcenteree">
+		<div class="login">
+			<div class="header">
+				<img class='banner' src="<?php echo $this->baseUrl('/images/watermark.png');?>" /> 
+			    <h1>Admissions Resources</h1>
+			</div>
+			<form action="<?php echo $this->url(array('for' => $this->module,'ru' => urlencode($this->ru)),'login/do',false); ?>" method="post">
+			        <input type="text" name="username" placeholder="Username" />
+			        <input type="password" name="password" placeholder="Password" />
+			        <button type="submit">Log In</button>
+			</form>
+		</div>
+	</div>
 </div>
