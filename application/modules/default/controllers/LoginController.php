@@ -34,5 +34,6 @@ class LoginController extends Zend_Controller_Action{
     
     public function logoutAction(){
         $this->_helper->User->logout();
+        $this->_helper->redirector->gotoUrlAndExit('/admin');
     }
 }
