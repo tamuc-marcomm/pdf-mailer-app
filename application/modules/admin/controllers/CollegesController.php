@@ -26,7 +26,7 @@ class Admin_CollegesController extends Zend_Controller_Action{
 
 		$table = new Application_Model_Table_Colleges();
 		if($this->getRequest()->getParam('new',false)){
-			$This->view->id = 0;
+			$this->view->id = 0;
 			$this->view->college = $table->createRow();
 		}else{
 			if($id == null){
