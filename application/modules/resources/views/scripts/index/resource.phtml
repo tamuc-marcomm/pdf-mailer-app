@@ -1,0 +1,26 @@
+<header class="bar-title">
+	<a class="button-prev" href="<?php echo $this->baseUrl('/resources/index/department/id/' . $this->department_id); ?>">
+		Previous
+	</a>
+	<h1 class="title">
+		<?php if (isset($this->resources[0])) : ?>
+		Resources
+		<?php else : ?>
+		There's nothing here.
+		<?php endif; ?>
+	</h1>
+</header>
+<div class="content">
+<ul class="list">
+	<?php foreach($this->resources as $resource) : ?>
+	<li>
+			<?php echo $resource->name; ?>
+			<span class="icon" onClick="parent.location = 'mailto:?subject=<?php echo $resource->email_subject; ?>&body=<?php echo $resource->email_body; ?>'"><img src="<?php echo $this->baseUrl('/images/mail-link.png'); ?>"></span>
+
+			<span class="icon" onClick="window.location = '<?php echo $resource->pdf_link; ?>'">
+				<img  src="<?php echo $this->baseUrl('/images/pdf-link.png'); ?>"> 
+			</span>
+	</li>
+	<?php endforeach; ?>
+</ul>
+</div>

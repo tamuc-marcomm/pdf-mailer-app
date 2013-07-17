@@ -1,0 +1,24 @@
+<header class="bar-title">
+	<a class="button-prev" href="<?php echo $this->baseUrl('/resources'); ?>">
+		Previous
+	</a>
+	<h1 class="title">
+		<?php if (isset($this->departments[0])) : ?>
+		Departments
+		<?php else : ?>
+		There's nothing here.
+		<?php endif; ?>
+	</h1>
+</header>
+<div class="content">
+<ul class="list">
+	<?php foreach ($this->departments as $department) : ?>
+	<li>
+		<a href="<?php echo $this->baseUrl('/resources/index/resource/id/' . $department->id); ?>">
+			<?php echo $department->name; ?>
+			<span class="chevron"></span>
+		</a>
+	</li>
+	<?php endforeach; ?>
+</ul>
+</div>

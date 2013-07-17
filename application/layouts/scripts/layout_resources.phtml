@@ -6,14 +6,12 @@ $this->headTitle('Marketing & Communications - Resources');
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+    <?php $this->headLink()->appendStylesheet($this->baseUrl('/css/ratchet.css')); ?>
+
     <?php echo $this->headMeta();?>
     <?php echo $this->headTitle();?>
     <link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
 
-    
-    <?php $this->headLink()->appendStylesheet($this->baseUrl().'/css/default/main.css'); ?>
-    <?php $this->headLink()->appendStylesheet($this->baseUrl().'/css/default/font-awesome.min.css'); ?>
-    <?php $this->headLink()->apppendStylesheet9$this->baseUrl() . '/css/add2home.css'); ?>
     <?php $this->headScript()->appendFile($this->baseUrl('/js/jquery.js')); ?>
     <script type="application/javascript" src="<?php echo $this->baseUrl('/js/add2home.js'); ?>"> </script>
     <?php echo $this->headLink(); ?>
