@@ -21,7 +21,7 @@ class Application_Model_Table_Departments extends Zend_Db_Table_Abstract{
         return $departments;
 	}
 
-	public static function getDepartmentsByParentID($id) {
+	public static function getDepartmentsByParentId($id) {
 		$table = new self();
 
 		$rowset = $table->fetchAll("parent = $id");
