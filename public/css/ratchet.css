@@ -588,16 +588,16 @@ a {
   position: absolute;
   top: 50%;
   right: 10px;
-  margin-top: -10px;
+  margin-top: -20px;
 }
 .list .icon > img {
-  height: 20px;
+  height: 40px;
   width: auto;
 }
 
 
 .list .icon + [class="icon"] {
-  right: 40px;
+  right: 70px;
 }
 
  /* Position chevrons/counts vertically centered on the right in list items */

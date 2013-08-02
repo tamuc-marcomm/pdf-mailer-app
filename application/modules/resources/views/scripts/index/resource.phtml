@@ -15,9 +15,13 @@
 	<?php foreach($this->resources as $resource) : ?>
 	<li>
 			<?php echo $resource->name; ?>
-			<span class="icon" onClick="parent.location = 'mailto:?subject=<?php echo $resource->email_subject; ?>&body=<?php echo $resource->email_body; ?>'"><img src="<?php echo $this->baseUrl('/images/mail-link.png'); ?>"></span>
+			<?php if (strpos($resource->pdf_link, 'http://') === false) {
+				    $pdf_link = 'http://' . $resource->pdf_link;
+			      } ?>
 
-			<span class="icon" onClick="window.location = '<?php echo $resource->pdf_link; ?>'">
+			<span class="icon" onClick="parent.location = 'mailto:?subject=<?php echo rawurlencode($resource->email_subject); ?>&body=<?php echo rawurlencode($resource->email_body); ?>'"><img src="<?php echo $this->baseUrl('/images/mail-link.png'); ?>"></span>
+
+			<span class="icon" onClick="window.location = '<?php echo $pdf_link; ?>'">
 				<img  src="<?php echo $this->baseUrl('/images/pdf-link.png'); ?>"> 
 			</span>
 	</li>

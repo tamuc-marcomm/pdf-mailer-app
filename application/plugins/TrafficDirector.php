@@ -2,9 +2,7 @@
 
 class Application_Plugin_TrafficDirector extends Zend_Controller_Plugin_Abstract{
     public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request){
-        if ($request->getModuleName() != "resources") {
-            //$this->_redirectLogin($request);
-        }
+        //$this->_redirectLogin($request);
     }
 
     protected function _redirectLogin(Zend_Controller_Request_Abstract &$request){

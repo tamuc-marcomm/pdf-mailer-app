@@ -49,8 +49,8 @@ class Admin_ResourceController extends Zend_Controller_Action{
 		$data = array(
 			'name' => $this->getRequest()->getParam('name'),
 			'parent' => $this->getRequest()->getParam('parent'),
-			'email_subject' => urlencode($this->getRequest()->getParam('email_subject')),
-			'email_body' => urlencode($this->getRequest()->getParam('email_body')),
+			'email_subject' => $this->getRequest()->getParam('email_subject'),
+			'email_body' => $this->getRequest()->getParam('email_body'),
 			'pdf_link' => $this->getRequest()->getParam('pdf_link')
 		);
 
